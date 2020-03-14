@@ -1,0 +1,662 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>970</width>
+    <height>668</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Experimenter GUI</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QStackedWidget" name="stackedWidget">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>971</width>
+      <height>721</height>
+     </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="currentIndex">
+     <number>0</number>
+    </property>
+    <widget class="QWidget" name="page">
+     <widget class="QLabel" name="titleConfigurationLabel">
+      <property name="geometry">
+       <rect>
+        <x>360</x>
+        <y>10</y>
+        <width>219</width>
+        <height>37</height>
+       </rect>
+      </property>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>28</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Configuration</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="startButton">
+      <property name="geometry">
+       <rect>
+        <x>380</x>
+        <y>470</y>
+        <width>161</width>
+        <height>71</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>28</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Start</string>
+      </property>
+     </widget>
+     <widget class="QFrame" name="personDataFrame">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>70</y>
+        <width>221</width>
+        <height>291</height>
+       </rect>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <widget class="QLabel" name="nameLabel">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>20</y>
+         <width>58</width>
+         <height>14</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Name</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="ageLabel">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>70</y>
+         <width>31</width>
+         <height>16</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Age</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="genderLabel">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>120</y>
+         <width>58</width>
+         <height>14</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Gender</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="heightLabel">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>170</y>
+         <width>58</width>
+         <height>14</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Height</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="weightLabel">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>220</y>
+         <width>58</width>
+         <height>14</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Weight</string>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="nameEdit">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>40</y>
+         <width>113</width>
+         <height>24</height>
+        </rect>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="ageEdit">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>90</y>
+         <width>113</width>
+         <height>24</height>
+        </rect>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="lineEdit_3">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>190</y>
+         <width>113</width>
+         <height>24</height>
+        </rect>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="lineEdit_4">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>240</y>
+         <width>113</width>
+         <height>24</height>
+        </rect>
+       </property>
+      </widget>
+      <widget class="QComboBox" name="genderBox">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>140</y>
+         <width>78</width>
+         <height>24</height>
+        </rect>
+       </property>
+       <item>
+        <property name="text">
+         <string>M</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>F</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Other</string>
+        </property>
+       </item>
+      </widget>
+     </widget>
+     <widget class="QFrame" name="gesturesFrame">
+      <property name="geometry">
+       <rect>
+        <x>350</x>
+        <y>70</y>
+        <width>221</width>
+        <height>291</height>
+       </rect>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <widget class="QLabel" name="nGesturesLabel">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>20</y>
+         <width>131</width>
+         <height>16</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Number of Gestures</string>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="nGesturesEdit">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>40</y>
+         <width>113</width>
+         <height>24</height>
+        </rect>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>70</y>
+         <width>58</width>
+         <height>14</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Gestures</string>
+       </property>
+      </widget>
+      <widget class="QComboBox" name="gesture1Box">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>90</y>
+         <width>78</width>
+         <height>24</height>
+        </rect>
+       </property>
+       <item>
+        <property name="text">
+         <string>None</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Drinking</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Pouring</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Sitting Down</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Standing Up</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Walking</string>
+        </property>
+       </item>
+      </widget>
+      <widget class="QLabel" name="firstLabel">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>95</y>
+         <width>21</width>
+         <height>16</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>1st</string>
+       </property>
+      </widget>
+      <widget class="QComboBox" name="gesture2Box">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>120</y>
+         <width>78</width>
+         <height>24</height>
+        </rect>
+       </property>
+       <item>
+        <property name="text">
+         <string>None</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Drinking</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Pouring</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Sitting Down</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Standing Up</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Walking</string>
+        </property>
+       </item>
+      </widget>
+      <widget class="QComboBox" name="gesture5Box">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>210</y>
+         <width>78</width>
+         <height>24</height>
+        </rect>
+       </property>
+       <item>
+        <property name="text">
+         <string>None</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Drinking</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Pouring</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Sitting Down</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Standing Up</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Walking</string>
+        </property>
+       </item>
+      </widget>
+      <widget class="QComboBox" name="gesture4Box">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>180</y>
+         <width>78</width>
+         <height>24</height>
+        </rect>
+       </property>
+       <item>
+        <property name="text">
+         <string>None</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Drinking</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Pouring</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Sitting Down</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Standing Up</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Walking</string>
+        </property>
+       </item>
+      </widget>
+      <widget class="QComboBox" name="gesture3Box">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>150</y>
+         <width>78</width>
+         <height>24</height>
+        </rect>
+       </property>
+       <item>
+        <property name="text">
+         <string>None</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Drinking</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Pouring</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Sitting Down</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Standing Up</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Walking</string>
+        </property>
+       </item>
+      </widget>
+      <widget class="QLabel" name="secondLabel">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>125</y>
+         <width>21</width>
+         <height>16</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>2nd</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="thirdLabel">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>155</y>
+         <width>21</width>
+         <height>16</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>3rd</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="fourthLabel">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>185</y>
+         <width>21</width>
+         <height>16</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>4th</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="fifthLabel">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>215</y>
+         <width>21</width>
+         <height>16</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>5th</string>
+       </property>
+      </widget>
+      <widget class="QCheckBox" name="casualCheckBox">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>240</y>
+         <width>131</width>
+         <height>21</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Casual Sequence</string>
+       </property>
+      </widget>
+      <zorder>nameLabel_2</zorder>
+      <zorder>nGesturesLabel</zorder>
+      <zorder>nGesturesEdit</zorder>
+      <zorder>label</zorder>
+      <zorder>gesture1Box</zorder>
+      <zorder>firstLabel</zorder>
+      <zorder>gesture2Box</zorder>
+      <zorder>gesture5Box</zorder>
+      <zorder>gesture4Box</zorder>
+      <zorder>gesture3Box</zorder>
+      <zorder>secondLabel</zorder>
+      <zorder>thirdLabel</zorder>
+      <zorder>fourthLabel</zorder>
+      <zorder>fifthLabel</zorder>
+      <zorder>casualCheckBox</zorder>
+     </widget>
+     <widget class="QFrame" name="gesturesFrame_2">
+      <property name="geometry">
+       <rect>
+        <x>680</x>
+        <y>70</y>
+        <width>221</width>
+        <height>291</height>
+       </rect>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <widget class="QLabel" name="sensorsLabel">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>20</y>
+         <width>81</width>
+         <height>16</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Sensors Used</string>
+       </property>
+      </widget>
+      <widget class="QCheckBox" name="casualCheckBox_2">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>40</y>
+         <width>71</width>
+         <height>21</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Kinect</string>
+       </property>
+      </widget>
+      <widget class="QCheckBox" name="casualCheckBox_3">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>60</y>
+         <width>71</width>
+         <height>21</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>MOCAP</string>
+       </property>
+      </widget>
+      <widget class="QCheckBox" name="casualCheckBox_4">
+       <property name="geometry">
+        <rect>
+         <x>30</x>
+         <y>80</y>
+         <width>101</width>
+         <height>21</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Smartwatch</string>
+       </property>
+      </widget>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="page_2"/>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>970</width>
+     <height>22</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
