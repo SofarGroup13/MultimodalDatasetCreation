@@ -38,7 +38,7 @@ Please keep in mind, **do not** include in your repository the “entire” code
 This is the link to the report: < put the link here >
 
 ## Authors
-* FirstName LastName: email@email.com
+* Francesco Porta: francy857@gmail.com
 * FirstName LastName: email@email.com
 * FirstName LastName: email@email.com
 * FirstName LastName: email@email.com
