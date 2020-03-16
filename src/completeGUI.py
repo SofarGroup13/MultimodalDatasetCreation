@@ -116,9 +116,9 @@ class Ui_MainWindow(object):
         self.nGesturesEdit.setGeometry(QtCore.QRect(30, 40, 113, 24))
         self.nGesturesEdit.setObjectName("nGesturesEdit")
 
-        self.label = QtWidgets.QLabel(self.gesturesFrame)
-        self.label.setGeometry(QtCore.QRect(30, 70, 71, 16))
-        self.label.setObjectName("label")
+        self.gesturesLabel = QtWidgets.QLabel(self.gesturesFrame)
+        self.gesturesLabel.setGeometry(QtCore.QRect(30, 70, 71, 16))
+        self.gesturesLabel.setObjectName("label")
 
         self.gesture1Box = QtWidgets.QComboBox(self.gesturesFrame)
         self.gesture1Box.setGeometry(QtCore.QRect(30, 90, 78, 24))
@@ -245,7 +245,7 @@ class Ui_MainWindow(object):
         self.Display_Image_Label.setGeometry(QtCore.QRect(300, 180, 400, 300))
         self.Display_Image_Label.setFrameShape(QtWidgets.QFrame.NoFrame)
         self.Display_Image_Label.setText("")
-        self.Display_Image_Label.setPixmap(QtGui.QPixmap("../../../../Downloads/Blurring_Cat.jpeg"))
+        self.Display_Image_Label.setPixmap(QtGui.QPixmap("pictures/stand_up.jpg"))
         self.Display_Image_Label.setScaledContents(True)
         self.Display_Image_Label.setObjectName("Display_Image_Label")
 
@@ -320,7 +320,7 @@ class Ui_MainWindow(object):
         self.genderBox.setItemText(1, _translate("MainWindow", "F"))
         self.genderBox.setItemText(2, _translate("MainWindow", "Other"))
         self.nGesturesLabel.setText(_translate("MainWindow", "Number of Gestures"))
-        self.label.setText(_translate("MainWindow", "Gestures"))
+        self.gesturesLabel.setText(_translate("MainWindow", "Gestures"))
         self.gesture1Box.setItemText(0, _translate("MainWindow", "None"))
         self.gesture1Box.setItemText(1, _translate("MainWindow", "Drinking"))
         self.gesture1Box.setItemText(2, _translate("MainWindow", "Pouring"))
