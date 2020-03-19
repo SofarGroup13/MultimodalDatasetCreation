@@ -1,7 +1,8 @@
 import PyQt5
 from PyQt5 import QtCore, QtGui, QtWidgets
 
-
+## class Ui_Configuration_Window
+#   this class contains the configuration window design
 class Ui_Configuration_Window(PyQt5.QtWidgets.QWidget):
     def setupUi(self, Configuration_Window):
         Configuration_Window.setObjectName("Configuration_Window")

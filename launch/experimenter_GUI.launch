@@ -1,0 +1,5 @@
+<launch>
+    <node pkg="MultimodalDatasetCreation" type="GUI_node.py" name="experimenter_GUI" output="screen">
+    </node>
+
+</launch>
