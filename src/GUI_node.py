@@ -1,3 +1,4 @@
+#! /usr/bin/env python3.5
 ## @package GUI_node.py
 #  This module shows the interface of the architecture whith the configuration and the recording windows
 #
