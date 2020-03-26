@@ -13,6 +13,7 @@ class Ui_Configuration_Window(PyQt5.QtWidgets.QWidget):
         font.setPointSize(24)
         font.setBold(True)
         font.setWeight(75)
+
         self.Configuration_Title.setFont(font)
         self.Configuration_Title.setFrameShape(QtWidgets.QFrame.Panel)
         self.Configuration_Title.setFrameShadow(QtWidgets.QFrame.Raised)
@@ -26,11 +27,13 @@ class Ui_Configuration_Window(PyQt5.QtWidgets.QWidget):
         font.setPointSize(20)
         font.setBold(True)
         font.setWeight(75)
+
         self.Go_To_Recording_Button.setFont(font)
         self.Go_To_Recording_Button.setObjectName("Go_To_Recording_Button")
         self.verticalLayoutWidget_2 = QtWidgets.QWidget(Configuration_Window)
         self.verticalLayoutWidget_2.setGeometry(QtCore.QRect(300, 60, 341, 469))
         self.verticalLayoutWidget_2.setObjectName("verticalLayoutWidget_2")
+
         self.Gesture_Sequence_Layout = QtWidgets.QVBoxLayout(self.verticalLayoutWidget_2)
         self.Gesture_Sequence_Layout.setContentsMargins(0, 0, 0, 0)
         self.Gesture_Sequence_Layout.setObjectName("Gesture_Sequence_Layout")
@@ -40,6 +43,7 @@ class Ui_Configuration_Window(PyQt5.QtWidgets.QWidget):
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.Gesture_Sequence_Options_Label.sizePolicy().hasHeightForWidth())
+
         self.Gesture_Sequence_Options_Label.setSizePolicy(sizePolicy)
         font = QtGui.QFont()
         font.setPointSize(14)
@@ -50,6 +54,7 @@ class Ui_Configuration_Window(PyQt5.QtWidgets.QWidget):
         self.Gesture_Sequence_Options_Label.setAlignment(QtCore.Qt.AlignHCenter|QtCore.Qt.AlignTop)
         self.Gesture_Sequence_Options_Label.setObjectName("Gesture_Sequence_Options_Label")
         self.Gesture_Sequence_Layout.addWidget(self.Gesture_Sequence_Options_Label)
+
         self.Casual_Sequence_Check = QtWidgets.QCheckBox(self.verticalLayoutWidget_2)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
@@ -61,11 +66,13 @@ class Ui_Configuration_Window(PyQt5.QtWidgets.QWidget):
         font.setItalic(True)
         self.Casual_Sequence_Check.setFont(font)
         self.Casual_Sequence_Check.setObjectName("Casual_Sequence_Check")
+
         self.Gesture_Sequence_Layout.addWidget(self.Casual_Sequence_Check)
         self.Gestures_Number_Label = QtWidgets.QLabel(self.verticalLayoutWidget_2)
         font = QtGui.QFont()
         font.setPointSize(13)
         font.setItalic(True)
+
         self.Gestures_Number_Label.setFont(font)
         self.Gestures_Number_Label.setObjectName("Gestures_Number_Label")
         self.Gesture_Sequence_Layout.addWidget(self.Gestures_Number_Label)
@@ -80,6 +87,7 @@ class Ui_Configuration_Window(PyQt5.QtWidgets.QWidget):
         font.setItalic(True)
         font.setUnderline(True)
         font.setWeight(75)
+
         self.Or_Label.setFont(font)
         self.Or_Label.setAlignment(QtCore.Qt.AlignCenter)
         self.Or_Label.setObjectName("Or_Label")
@@ -88,12 +96,14 @@ class Ui_Configuration_Window(PyQt5.QtWidgets.QWidget):
         font = QtGui.QFont()
         font.setPointSize(12)
         font.setItalic(True)
+
         self.First_Gesture_Label.setFont(font)
         self.First_Gesture_Label.setObjectName("First_Gesture_Label")
         self.Gesture_Sequence_Layout.addWidget(self.First_Gesture_Label)
         self.First_Gesture_Selection = QtWidgets.QComboBox(self.verticalLayoutWidget_2)
         font = QtGui.QFont()
         font.setPointSize(10)
+
         self.First_Gesture_Selection.setFont(font)
         self.First_Gesture_Selection.setObjectName("First_Gesture_Selection")
         self.First_Gesture_Selection.addItem("")
@@ -106,6 +116,7 @@ class Ui_Configuration_Window(PyQt5.QtWidgets.QWidget):
         font = QtGui.QFont()
         font.setPointSize(12)
         font.setItalic(True)
+
         self.Second_Gesture_Label.setFont(font)
         self.Second_Gesture_Label.setObjectName("Second_Gesture_Label")
         self.Gesture_Sequence_Layout.addWidget(self.Second_Gesture_Label)
@@ -124,12 +135,14 @@ class Ui_Configuration_Window(PyQt5.QtWidgets.QWidget):
         font = QtGui.QFont()
         font.setPointSize(12)
         font.setItalic(True)
+
         self.Third_Gesture_Label.setFont(font)
         self.Third_Gesture_Label.setObjectName("Third_Gesture_Label")
         self.Gesture_Sequence_Layout.addWidget(self.Third_Gesture_Label)
         self.Third_Gesture_Selection = QtWidgets.QComboBox(self.verticalLayoutWidget_2)
         font = QtGui.QFont()
         font.setPointSize(10)
+
         self.Third_Gesture_Selection.setFont(font)
         self.Third_Gesture_Selection.setObjectName("Third_Gesture_Selection")
         self.Third_Gesture_Selection.addItem("")
@@ -142,12 +155,14 @@ class Ui_Configuration_Window(PyQt5.QtWidgets.QWidget):
         font = QtGui.QFont()
         font.setPointSize(12)
         font.setItalic(True)
+
         self.Fourth_Gesture_Label.setFont(font)
         self.Fourth_Gesture_Label.setObjectName("Fourth_Gesture_Label")
         self.Gesture_Sequence_Layout.addWidget(self.Fourth_Gesture_Label)
         self.Fourth_Gesture_Selection = QtWidgets.QComboBox(self.verticalLayoutWidget_2)
         font = QtGui.QFont()
         font.setPointSize(10)
+
         self.Fourth_Gesture_Selection.setFont(font)
         self.Fourth_Gesture_Selection.setObjectName("Fourth_Gesture_Selection")
         self.Fourth_Gesture_Selection.addItem("")
@@ -160,12 +175,14 @@ class Ui_Configuration_Window(PyQt5.QtWidgets.QWidget):
         font = QtGui.QFont()
         font.setPointSize(12)
         font.setItalic(True)
+
         self.Fifth_Gesture_Label.setFont(font)
         self.Fifth_Gesture_Label.setObjectName("Fifth_Gesture_Label")
         self.Gesture_Sequence_Layout.addWidget(self.Fifth_Gesture_Label)
         self.Fifth_Gesture_Selection = QtWidgets.QComboBox(self.verticalLayoutWidget_2)
         font = QtGui.QFont()
         font.setPointSize(10)
+
         self.Fifth_Gesture_Selection.setFont(font)
         self.Fifth_Gesture_Selection.setObjectName("Fifth_Gesture_Selection")
         self.Fifth_Gesture_Selection.addItem("")
@@ -174,6 +191,7 @@ class Ui_Configuration_Window(PyQt5.QtWidgets.QWidget):
         self.Fifth_Gesture_Selection.addItem("")
         self.Fifth_Gesture_Selection.addItem("")
         self.Gesture_Sequence_Layout.addWidget(self.Fifth_Gesture_Selection)
+
         self.verticalLayoutWidget = QtWidgets.QWidget(Configuration_Window)
         self.verticalLayoutWidget.setGeometry(QtCore.QRect(20, 90, 261, 411))
         self.verticalLayoutWidget.setObjectName("verticalLayoutWidget")
@@ -187,6 +205,7 @@ class Ui_Configuration_Window(PyQt5.QtWidgets.QWidget):
         font.setPointSize(14)
         font.setBold(True)
         font.setWeight(75)
+
         self.Personal_Info_Label.setFont(font)
         self.Personal_Info_Label.setFrameShape(QtWidgets.QFrame.NoFrame)
         self.Personal_Info_Label.setAlignment(QtCore.Qt.AlignHCenter|QtCore.Qt.AlignTop)
@@ -196,6 +215,7 @@ class Ui_Configuration_Window(PyQt5.QtWidgets.QWidget):
         font = QtGui.QFont()
         font.setPointSize(14)
         font.setItalic(True)
+
         self.Name_Label.setFont(font)
         self.Name_Label.setObjectName("Name_Label")
         self.Personal_Info_Layout.addWidget(self.Name_Label)
@@ -206,6 +226,7 @@ class Ui_Configuration_Window(PyQt5.QtWidgets.QWidget):
         font = QtGui.QFont()
         font.setPointSize(14)
         font.setItalic(True)
+
         self.Surname_Label.setFont(font)
         self.Surname_Label.setObjectName("Surname_Label")
         self.Personal_Info_Layout.addWidget(self.Surname_Label)
@@ -216,6 +237,7 @@ class Ui_Configuration_Window(PyQt5.QtWidgets.QWidget):
         font = QtGui.QFont()
         font.setPointSize(14)
         font.setItalic(True)
+
         self.Age_Label.setFont(font)
         self.Age_Label.setObjectName("Age_Label")
         self.Personal_Info_Layout.addWidget(self.Age_Label)
@@ -226,12 +248,14 @@ class Ui_Configuration_Window(PyQt5.QtWidgets.QWidget):
         font = QtGui.QFont()
         font.setPointSize(14)
         font.setItalic(True)
+
         self.Gender_Label.setFont(font)
         self.Gender_Label.setObjectName("Gender_Label")
         self.Personal_Info_Layout.addWidget(self.Gender_Label)
         self.Gender_Selection = QtWidgets.QComboBox(self.verticalLayoutWidget)
         font = QtGui.QFont()
         font.setPointSize(12)
+
         self.Gender_Selection.setFont(font)
         self.Gender_Selection.setEditable(False)
         self.Gender_Selection.setObjectName("Gender_Selection")
@@ -243,6 +267,7 @@ class Ui_Configuration_Window(PyQt5.QtWidgets.QWidget):
         font = QtGui.QFont()
         font.setPointSize(14)
         font.setItalic(True)
+
         self.Height_Label.setFont(font)
         self.Height_Label.setObjectName("Height_Label")
         self.Personal_Info_Layout.addWidget(self.Height_Label)
@@ -253,6 +278,7 @@ class Ui_Configuration_Window(PyQt5.QtWidgets.QWidget):
         font = QtGui.QFont()
         font.setPointSize(14)
         font.setItalic(True)
+
         self.Weight_Label.setFont(font)
         self.Weight_Label.setObjectName("Weight_Label")
         self.Personal_Info_Layout.addWidget(self.Weight_Label)
@@ -272,6 +298,7 @@ class Ui_Configuration_Window(PyQt5.QtWidgets.QWidget):
         self.Name_Edit.raise_()
         self.Surname_Edit.raise_()
         self.Weight_Edit.raise_()
+
         self.verticalLayoutWidget_3 = QtWidgets.QWidget(Configuration_Window)
         self.verticalLayoutWidget_3.setGeometry(QtCore.QRect(660, 150, 221, 251))
         self.verticalLayoutWidget_3.setObjectName("verticalLayoutWidget_3")
@@ -285,6 +312,7 @@ class Ui_Configuration_Window(PyQt5.QtWidgets.QWidget):
         font.setPointSize(14)
         font.setBold(True)
         font.setWeight(75)
+
         self.Sensors_Options_Label.setFont(font)
         self.Sensors_Options_Label.setFrameShape(QtWidgets.QFrame.NoFrame)
         self.Sensors_Options_Label.setAlignment(QtCore.Qt.AlignHCenter|QtCore.Qt.AlignTop)
@@ -299,6 +327,7 @@ class Ui_Configuration_Window(PyQt5.QtWidgets.QWidget):
         font = QtGui.QFont()
         font.setPointSize(14)
         font.setItalic(True)
+
         self.Kinect_Sensor_Check.setFont(font)
         self.Kinect_Sensor_Check.setObjectName("Kinect_Sensor_Check")
         self.Sensor_Options_Layout.addWidget(self.Kinect_Sensor_Check)
@@ -311,6 +340,7 @@ class Ui_Configuration_Window(PyQt5.QtWidgets.QWidget):
         font = QtGui.QFont()
         font.setPointSize(14)
         font.setItalic(True)
+
         self.MOCAP_Sensor_Check.setFont(font)
         self.MOCAP_Sensor_Check.setObjectName("MOCAP_Sensor_Check")
         self.Sensor_Options_Layout.addWidget(self.MOCAP_Sensor_Check)
@@ -323,6 +353,7 @@ class Ui_Configuration_Window(PyQt5.QtWidgets.QWidget):
         font = QtGui.QFont()
         font.setPointSize(14)
         font.setItalic(True)
+
         self.Smartwatch_Sensor_Check.setFont(font)
         self.Smartwatch_Sensor_Check.setObjectName("Smartwatch_Sensor_Check")
         self.Sensor_Options_Layout.addWidget(self.Smartwatch_Sensor_Check)
@@ -332,12 +363,14 @@ class Ui_Configuration_Window(PyQt5.QtWidgets.QWidget):
         self.Personal_Info_Frame.setFrameShadow(QtWidgets.QFrame.Plain)
         self.Personal_Info_Frame.setLineWidth(2)
         self.Personal_Info_Frame.setObjectName("Personal_Info_Frame")
+
         self.Gesture_Sequence_Frame = QtWidgets.QFrame(Configuration_Window)
         self.Gesture_Sequence_Frame.setGeometry(QtCore.QRect(295, 55, 351, 480))
         self.Gesture_Sequence_Frame.setFrameShape(QtWidgets.QFrame.Box)
         self.Gesture_Sequence_Frame.setFrameShadow(QtWidgets.QFrame.Plain)
         self.Gesture_Sequence_Frame.setLineWidth(2)
         self.Gesture_Sequence_Frame.setObjectName("Gesture_Sequence_Frame")
+
         self.Sensors_Options_Frame = QtWidgets.QFrame(Configuration_Window)
         self.Sensors_Options_Frame.setGeometry(QtCore.QRect(655, 145, 231, 261))
         self.Sensors_Options_Frame.setFrameShape(QtWidgets.QFrame.Box)
@@ -345,6 +378,7 @@ class Ui_Configuration_Window(PyQt5.QtWidgets.QWidget):
         self.Sensors_Options_Frame.setLineWidth(2)
         self.Sensors_Options_Frame.setObjectName("Sensors_Options_Frame")
         self.Sensors_Options_Frame.raise_()
+
         self.Personal_Info_Frame.raise_()
         self.Gesture_Sequence_Frame.raise_()
         self.Configuration_Title.raise_()
@@ -352,6 +386,7 @@ class Ui_Configuration_Window(PyQt5.QtWidgets.QWidget):
         self.verticalLayoutWidget_2.raise_()
         self.verticalLayoutWidget.raise_()
         self.verticalLayoutWidget_3.raise_()
+
 
         self.retranslateUi(Configuration_Window)
         QtCore.QMetaObject.connectSlotsByName(Configuration_Window)
