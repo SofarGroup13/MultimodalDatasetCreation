@@ -28,6 +28,7 @@ class MainWindow(QtWidgets.QMainWindow):
 
         # go to the recording page whem clicking the Go To Recording button
         self.configuration_Window.Go_To_Recording_Button.clicked.connect(self.goToRecording)
+
         # enable the Num_of_Gestures EditBox
         self.configuration_Window.Casual_Sequence_Check.stateChanged.connect(self.selectCasualSequence)
 
@@ -53,9 +54,7 @@ class MainWindow(QtWidgets.QMainWindow):
             self.configuration_Window.Third_Gesture_Selection.setEnabled(True)
             self.configuration_Window.Fourth_Gesture_Selection.setEnabled(True)
             self.configuration_Window.Fifth_Gesture_Selection.setEnabled(True)
-    
-    
-        
+            
         
     ## goToRecording function
     #  function that shows the recording window
