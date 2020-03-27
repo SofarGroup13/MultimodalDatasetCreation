@@ -7,6 +7,7 @@ from PyQt5 import QtWidgets
 from lib.Windows.configuration_Window import Ui_Configuration_Window
 from lib.Windows.recording_Window import Ui_Recording_Window
 from lib.Tools.startmsg_publisher import StartMsg_Publisher
+from lib.Tools.gesture_sequence_service import Gesture_Sequence_Service
 
 ## class MainWindow
 #   
