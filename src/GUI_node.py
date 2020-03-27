@@ -6,6 +6,7 @@ import sys, rospy, PyQt5, collections
 from PyQt5 import QtWidgets
 from lib.Windows.configuration_Window import Ui_Configuration_Window
 from lib.Windows.recording_Window import Ui_Recording_Window
+from lib.Tools.startmsg_publisher import StartMsg_Publisher
 
 ## class MainWindow
 #   
@@ -87,6 +88,7 @@ class MainWindow(QtWidgets.QMainWindow):
             self.configuration_Window.Gender_Selection.currentText(),\
             self.configuration_Window.Height_Edit.text(),\
             self.configuration_Window.Weight_Edit.text()) 
+
 
 
 
