@@ -7,7 +7,7 @@ from PyQt5 import QtWidgets
 from lib.Windows.configuration_Window import Ui_Configuration_Window
 from lib.Windows.recording_Window import Ui_Recording_Window
 from lib.Tools.startmsg_publisher import StartMsg_Publisher
-from lib.Tools.gesture_sequence_service import Gesture_Sequence_Service
+from lib.Tools.gesture_sequence_client import Gesture_Sequence_Client
 
 ## class MainWindow
 #   
@@ -66,6 +66,9 @@ class MainWindow(QtWidgets.QMainWindow):
         # store temporarly info in a list
         self.savePersonalInfo()
 
+        if self.configuration_Window.Casual_Sequence_Check.isChecked():
+            self.askGestureSequence()
+
         # initialize recording window
         self.recording_Window = Ui_Recording_Window()
         self.recording_Widget = QtWidgets.QWidget()
@@ -90,8 +93,11 @@ class MainWindow(QtWidgets.QMainWindow):
             self.configuration_Window.Height_Edit.text(),\
             self.configuration_Window.Weight_Edit.text()) 
 
-
-
+    ## askGestureSequence method
+    #   request to the service for the gesture sequence
+    def askGestureSequence(self):
+        self.gesture_sequence_client = Gesture_Sequence_Client(int(self.configuration_Window.Gestures_Number_Edit.text()))
+        self.gesture_sequence = self.gesture_sequence_client.gesture_sequence
 
 if __name__ == '__main__':
     rospy.init_node('experimenter_GUI', disable_signals=True)
