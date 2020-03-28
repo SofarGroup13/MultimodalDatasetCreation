@@ -85,7 +85,7 @@ class MainWindow(QtWidgets.QMainWindow):
         ## If the user wants a casual sequence, call the service
         if self.configuration_Window.Casual_Sequence_Check.isChecked():
             self.askGestureSequence()
-        else:
+        #else:
             ## Obtain the sequence from the combo boxes and create the integer array
             #
 
@@ -218,7 +218,7 @@ class MainWindow(QtWidgets.QMainWindow):
     #  Function that updates the image to be shown to the user
     #  @param self The object pointer
     #  @param gesturePosition The position in the array of the gesture whose image must be shown
-    def updateImage(self, gesturePosition):
+    #def updateImage(self, gesturePosition):
         ## See which gesture sequence[gesturePosition] corresponds to and show its image
         # switch sequence[gesturePosition]:
         # ...

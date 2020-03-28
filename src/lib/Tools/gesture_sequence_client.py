@@ -11,7 +11,7 @@ class Gesture_Sequence_Client:
     ## method gesture_sequence_request
     #   request to the service for the gesture sequence
     def gesture_sequence_request(self,num_of_gestures):
-        self.rospy.wait_for_service('gesture_sequence_generator')
+        rospy.wait_for_service('gesture_sequence_generator')
         try:
             self.gesture_sequence_generator = rospy.ServiceProxy('gesture_sequence_generator', GestureSequence)
             self.response = self.gesture_sequence_generator(self.num_of_gestures)

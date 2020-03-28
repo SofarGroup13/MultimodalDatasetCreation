@@ -1,5 +1,6 @@
 <launch>
     <node pkg="multimodal_dataset_creation" type="GUI_node.py" name="experimenter_GUI" output="screen">
     </node>
-
+    <node pkg="multimodal_dataset_creation" type="gestures_node.py" name="gesture_sequence_server" output="screen">
+    </node>
 </launch>
