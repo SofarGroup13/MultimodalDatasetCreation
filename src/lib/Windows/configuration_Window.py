@@ -156,6 +156,7 @@ class Ui_Configuration_Window(PyQt5.QtWidgets.QWidget):
         self.First_Gesture_Selection.addItem("")
         self.First_Gesture_Selection.addItem("")
         self.First_Gesture_Selection.addItem("")
+        self.First_Gesture_Selection.addItem("")
 
         ## Add the combo box to the sub-layout
         self.Gesture_Sequence_Layout.addWidget(self.First_Gesture_Selection)
@@ -182,6 +183,7 @@ class Ui_Configuration_Window(PyQt5.QtWidgets.QWidget):
 
         self.Second_Gesture_Selection.setObjectName("Second_Gesture_Selection")
 
+        self.Second_Gesture_Selection.addItem("")
         self.Second_Gesture_Selection.addItem("")
         self.Second_Gesture_Selection.addItem("")
         self.Second_Gesture_Selection.addItem("")
@@ -218,6 +220,7 @@ class Ui_Configuration_Window(PyQt5.QtWidgets.QWidget):
         self.Third_Gesture_Selection.addItem("")
         self.Third_Gesture_Selection.addItem("")
         self.Third_Gesture_Selection.addItem("")
+        self.Third_Gesture_Selection.addItem("")
 
         ## Add the combo box to the sub-layout
         self.Gesture_Sequence_Layout.addWidget(self.Third_Gesture_Selection)
@@ -249,6 +252,7 @@ class Ui_Configuration_Window(PyQt5.QtWidgets.QWidget):
         self.Fourth_Gesture_Selection.addItem("")
         self.Fourth_Gesture_Selection.addItem("")
         self.Fourth_Gesture_Selection.addItem("")
+        self.Fourth_Gesture_Selection.addItem("")
 
         ## Add the combo box to the sub-layout
         self.Gesture_Sequence_Layout.addWidget(self.Fourth_Gesture_Selection)
@@ -275,6 +279,7 @@ class Ui_Configuration_Window(PyQt5.QtWidgets.QWidget):
 
         self.Fifth_Gesture_Selection.setObjectName("Fifth_Gesture_Selection")
 
+        self.Fifth_Gesture_Selection.addItem("")
         self.Fifth_Gesture_Selection.addItem("")
         self.Fifth_Gesture_Selection.addItem("")
         self.Fifth_Gesture_Selection.addItem("")
@@ -601,30 +606,35 @@ class Ui_Configuration_Window(PyQt5.QtWidgets.QWidget):
         self.First_Gesture_Selection.setItemText(2, _translate("Configuration_Window", "Sitting Down"))
         self.First_Gesture_Selection.setItemText(3, _translate("Configuration_Window", "Standing Up"))
         self.First_Gesture_Selection.setItemText(4, _translate("Configuration_Window", "Walking"))
+        self.First_Gesture_Selection.setItemText(5, _translate("Configuration_Window", "None"))
         self.Second_Gesture_Label.setText(_translate("Configuration_Window", "2nd Gesture:"))
         self.Second_Gesture_Selection.setItemText(0, _translate("Configuration_Window", "Drinking"))
         self.Second_Gesture_Selection.setItemText(1, _translate("Configuration_Window", "Pouring"))
         self.Second_Gesture_Selection.setItemText(2, _translate("Configuration_Window", "Sitting Down"))
         self.Second_Gesture_Selection.setItemText(3, _translate("Configuration_Window", "Standing Up"))
         self.Second_Gesture_Selection.setItemText(4, _translate("Configuration_Window", "Walking"))
+        self.Second_Gesture_Selection.setItemText(5, _translate("Configuration_Window", "None"))
         self.Third_Gesture_Label.setText(_translate("Configuration_Window", "3rd Gesture:"))
         self.Third_Gesture_Selection.setItemText(0, _translate("Configuration_Window", "Drinking"))
         self.Third_Gesture_Selection.setItemText(1, _translate("Configuration_Window", "Pouring"))
         self.Third_Gesture_Selection.setItemText(2, _translate("Configuration_Window", "Sitting Down"))
         self.Third_Gesture_Selection.setItemText(3, _translate("Configuration_Window", "Standing Up"))
         self.Third_Gesture_Selection.setItemText(4, _translate("Configuration_Window", "Walking"))
+        self.Third_Gesture_Selection.setItemText(5, _translate("Configuration_Window", "None"))
         self.Fourth_Gesture_Label.setText(_translate("Configuration_Window", "4th Gesture:"))
         self.Fourth_Gesture_Selection.setItemText(0, _translate("Configuration_Window", "Drinking"))
         self.Fourth_Gesture_Selection.setItemText(1, _translate("Configuration_Window", "Pouring"))
         self.Fourth_Gesture_Selection.setItemText(2, _translate("Configuration_Window", "Sitting Down"))
         self.Fourth_Gesture_Selection.setItemText(3, _translate("Configuration_Window", "Standing Up"))
         self.Fourth_Gesture_Selection.setItemText(4, _translate("Configuration_Window", "Walking"))
+        self.Fourth_Gesture_Selection.setItemText(5, _translate("Configuration_Window", "None"))
         self.Fifth_Gesture_Label.setText(_translate("Configuration_Window", "5th Gesture:"))
         self.Fifth_Gesture_Selection.setItemText(0, _translate("Configuration_Window", "Drinking"))
         self.Fifth_Gesture_Selection.setItemText(1, _translate("Configuration_Window", "Pouring"))
         self.Fifth_Gesture_Selection.setItemText(2, _translate("Configuration_Window", "Sitting Down"))
         self.Fifth_Gesture_Selection.setItemText(3, _translate("Configuration_Window", "Standing Up"))
         self.Fifth_Gesture_Selection.setItemText(4, _translate("Configuration_Window", "Walking"))
+        self.Fifth_Gesture_Selection.setItemText(5, _translate("Configuration_Window", "None"))
         self.Personal_Info_Label.setText(_translate("Configuration_Window", "Personal Informations"))
         self.Name_Label.setText(_translate("Configuration_Window", "Name:"))
         self.Surname_Label.setText(_translate("Configuration_Window", "Surname:"))

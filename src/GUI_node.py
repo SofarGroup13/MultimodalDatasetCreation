@@ -2,7 +2,8 @@
 ## @package GUI_node.py
 #  This module shows the interface of the architecture whith the configuration and the recording windows
 #
-import sys, rospy, PyQt5, collections, time, math
+import sys, rospy, PyQt5, collections, time, math, os
+from datetime import datetime
 from PyQt5 import QtWidgets
 from lib.Windows.configuration_Window import Ui_Configuration_Window
 from lib.Windows.recording_Window import Ui_Recording_Window
@@ -26,6 +27,12 @@ class MainWindow(QtWidgets.QMainWindow):
 
         ## Variable to store the total recording time in seconds
         self.totalTime = 0
+
+        ## Directory where all the current recording related files will be saved
+        self.recordingDirectory = ""
+
+        ## List to store the gesture sequence to be performed
+        self.completeGestureSequence = []
 
         self.startConfigurationWindow()
 
@@ -84,10 +91,30 @@ class MainWindow(QtWidgets.QMainWindow):
 
         ## If the user wants a casual sequence, call the service
         if self.configuration_Window.Casual_Sequence_Check.isChecked():
-            self.askGestureSequence()
-        #else:
+            self.completeGestureSequence = self.askGestureSequence()
+
+            ## Compute the total recording time (we assume that every gesture will be performed for 30 seconds)
+            self.totalTime = 30 * len(self.completeGestureSequence)
+        else:
             ## Obtain the sequence from the combo boxes and create the integer array
-            #
+            self.firstGesture = self.configuration_Window.First_Gesture_Selection.currentIndex()
+            self.secondGesture = self.configuration_Window.Second_Gesture_Selection.currentIndex()
+            self.thirdGesture = self.configuration_Window.Third_Gesture_Selection.currentIndex()
+            self.fourthGesture = self.configuration_Window.Fourth_Gesture_Selection.currentIndex()
+            self.fifthGesture = self.configuration_Window.Fifth_Gesture_Selection.currentIndex()
+
+            self.completeGestureSequence = [self.firstGesture, self.secondGesture, self.thirdGesture, self.fourthGesture, self.fifthGesture]
+
+            ## If the user has set one or more combo boxes to "None" we have to remove their values
+            if 5 in self.completeGestureSequence:
+                self.completeGestureSequence.remove(5)
+
+                ## If the user has set all combo boxes to "None" we default to a sequence containing only one gesture
+                if len(self.completeGestureSequence) == 0:
+                    self.completeGestureSequence = [0]
+            
+            ## Compute the total recording time (we assume that every gesture will be performed for 30 seconds)
+            self.totalTime = 30 * len(self.completeGestureSequence)
 
         ## Initialize recording window
         self.recording_Window = Ui_Recording_Window()
@@ -118,10 +145,12 @@ class MainWindow(QtWidgets.QMainWindow):
             self.configuration_Window.Weight_Edit.text()) 
 
     ## askGestureSequence method
-    #   request to the service for the gesture sequence
+    #  Makes a request to the service to get the random gesture sequence
+    #  @param self The object pointer
     def askGestureSequence(self):
         self.gesture_sequence_client = Gesture_Sequence_Client(int(self.configuration_Window.Gestures_Number_Edit.text()))
         self.gesture_sequence = self.gesture_sequence_client.gesture_sequence
+
     ## function startCountdown
     #  Function called when the play button is clicked to start the countdown before the recording starts
     #  @param self The object pointer
@@ -130,7 +159,20 @@ class MainWindow(QtWidgets.QMainWindow):
         self.recording_Window.PlayStop_Button.setText("Stop")
         self.recording_Window.PlayStop_Button.setEnabled(False)
 
-        ## Create folders and files
+        ## Create the recording folder
+        self.createRecordingFolder()
+
+        ## Fill in the personal informations file 
+        self.personalInfoFilepath = os.path.join(self.recordingDirectory, "Personal_Informations.txt")
+        self.pinfoFile = open(self.personalInfoFilepath, 'w')
+        self.lines = ["Name is: " + self.personal_Info.name + "\n", 
+                      "Surname is: " + self.personal_Info.surname + "\n", 
+                      "Age is: " + self.personal_Info.age + "\n",
+                      "Gender is: " + self.personal_Info.gender + "\n",
+                      "Height is: " + self.personal_Info.height + "\n",
+                      "Weight is: " + self.personal_Info.weight + "\n"]
+        self.pinfoFile.writelines(self.lines)
+        self.pinfoFile.close()
 
         ## Show the countdown onto the screen
         self.recording_Window.Countdown_Value_Label.setText("10")
@@ -154,18 +196,42 @@ class MainWindow(QtWidgets.QMainWindow):
         self.recording_Window.Countdown_Value_Label.setText("1")
         time.sleep(1)
 
-        ## Publish the start commmands onto the correct topics
+        ## If all the check boxes are unchecked use as default sensor the Kinect
         if not self.useKinect and not self.useSmartwatch and not self.useMOCAP:
-            ## If all the check boxes are unchecked use as a default sensor the Kinect
+            ## Create the file to contain the kinect data
+            self.kinectFilepath = os.path.join(self.recordingDirectory, "Kinect_Data.txt")
+            self.kinectData = open(self.kinectFilepath, 'w')
+            self.kinectData.close()
+
+            ## Publish the start command for the kinect (check if "1" is ok)
             self.kinectPublisher.publish("1")
         else: 
+            ## Publish the start commmands onto the correct topics and create files accordingly
             if self.useKinect:
+                ## Create the file to contain the kinect data
+                self.kinectFilepath = os.path.join(self.recordingDirectory, "Kinect_Data.txt")
+                self.kinectData = open(self.kinectFilepath, 'w')
+                self.kinectData.close()
+
+                ## Publish the start command for the kinect
                 self.kinectPublisher.publish("1")
 
             if self.useSmartwatch:
+                ## Create the file to contain the smartwatch data
+                self.smartwatchFilepath = os.path.join(self.recordingDirectory, "Smartwatch_Data.txt")
+                self.smartwatchData = open(self.smartwatchFilepath, 'w')
+                self.smartwatchData.close()
+
+                ## Publish the start command for the smartwatch
                 self.smartwatchPublisher.publish("1")
 
             if self.useMOCAP:
+                ## Create the file to contain the MOCAP data
+                self.mocapFilepath = os.path.join(self.recordingDirectory, "MOCAP_Data.txt")
+                self.mocapData = open(self.mocapFilepath, 'w')
+                self.mocapData.close()
+
+                ## Publish the start command for the MOCAP
                 self.mocapPublisher.publish("1")
 
         ## Set the stop button to be enabled and connect to it the stopRecording function
@@ -174,6 +240,23 @@ class MainWindow(QtWidgets.QMainWindow):
 
         ## Execute the userFeedback function
         self.userFeedback()
+
+    ## function createRecordingFolder
+    #  Function that creates the current recording folder
+    #  @param self The object pointer
+    def createRecordingFolder(self):
+        ## Build up the folder path such that we can't get dupes
+        self.workingDirectory = os.getcwd()
+        self.parentDirectory = os.path.dirname(self.workingDirectory)
+        self.now = datetime.now()
+        self.folderName = self.now.strftime("%m_%d_%Y_%H-%M-%S")
+        self.recordingDirectory = os.path.join(self.parentDirectory, "files", self.folderName)
+
+        ## If the directory doesn't already exist then create it
+        if not os.path.exists(self.recordingDirectory):
+            os.mkdir(self.recordingDirectory)
+        else:
+            print(self.recordingDirectory + " already exists.")
 
     ## function stopRecording
     #  Function that is called when the user presses the stop button to stop the recording before the predefined time
@@ -191,11 +274,11 @@ class MainWindow(QtWidgets.QMainWindow):
     #  Function that deals with updating the current time and updating images
     #  @param self The object pointer
     def userFeedback(self):
-        ##
         self.currentTime = 0
         self.currentMinutes = 0
         self.currentSeconds = 0
 
+        ## Show the image of the first gesture to be performed
         self.updateImage(0)
 
         while not self.stopSignal and (self.currentTime != self.totalTime):
@@ -213,6 +296,8 @@ class MainWindow(QtWidgets.QMainWindow):
                 self.updateImage(self.currentTime / 30)
 
             time.sleep(1)
+
+        self.stopSignal = False
 
     ## function updateImage
     #  Function that updates the image to be shown to the user
