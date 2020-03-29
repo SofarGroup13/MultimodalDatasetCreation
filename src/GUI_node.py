@@ -91,7 +91,7 @@ class MainWindow(QtWidgets.QMainWindow):
 
         ## If the user wants a casual sequence, call the service
         if self.configuration_Window.Casual_Sequence_Check.isChecked():
-            self.completeGestureSequence = self.askGestureSequence()
+            self.completeGestureSequence = self.askGestureSequence().gesture_sequence
 
             ## Compute the total recording time (we assume that every gesture will be performed for 30 seconds)
             self.totalTime = 30 * len(self.completeGestureSequence)
@@ -112,7 +112,7 @@ class MainWindow(QtWidgets.QMainWindow):
                 ## If the user has set all combo boxes to "None" we default to a sequence containing only one gesture
                 if len(self.completeGestureSequence) == 0:
                     self.completeGestureSequence = [0]
-            
+            print(self.completeGestureSequence)
             ## Compute the total recording time (we assume that every gesture will be performed for 30 seconds)
             self.totalTime = 30 * len(self.completeGestureSequence)
 
@@ -149,7 +149,7 @@ class MainWindow(QtWidgets.QMainWindow):
     #  @param self The object pointer
     def askGestureSequence(self):
         self.gesture_sequence_client = Gesture_Sequence_Client(int(self.configuration_Window.Gestures_Number_Edit.text()))
-        self.gesture_sequence = self.gesture_sequence_client.gesture_sequence
+        return self.gesture_sequence_client.gesture_sequence
 
     ## function startCountdown
     #  Function called when the play button is clicked to start the countdown before the recording starts
