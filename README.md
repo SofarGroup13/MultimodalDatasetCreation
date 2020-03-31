@@ -8,6 +8,10 @@ It presents the overall architecture of the system with the help of a UML and it
 This section presents in a detailed manner (in its sub-sections) each module within the architecture.
 It describes details about the the modules within the architecture, i.e, **(i)** names of the key people who developed the module, **(ii)** mention the files (packages/nodes) found in the repository that are associated to the module, **(iii)** the prerequisites (e.g., all the hardware and software required) for the module, **(iv)** the inputs to the module, **(v)** the internal working of the module, and **(vi)** the outputs of the module.
 
+<p align="center"> 
+<img src="https://github.com/FraPorta/Itslit/blob/master/Experimenter_UML.png?raw=true">
+</p>
+
 ### Module < name of the module >
 	.
 	.
