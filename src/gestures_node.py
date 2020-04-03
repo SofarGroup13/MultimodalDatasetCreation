@@ -5,8 +5,8 @@ from random import choice
 from multimodal_dataset_creation.srv import GestureSequence, GestureSequenceResponse
 
 ## function gesture_generator
-#   generate a random gesture sequence 
-#   @param req The request value(num_of_gestures)
+#  Generate a random gesture sequence 
+#  @param req The request value(num_of_gestures)
 def gesture_generator(req):
         n = req.num_of_gestures
         response = []

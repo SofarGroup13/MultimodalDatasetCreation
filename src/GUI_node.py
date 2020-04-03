@@ -4,7 +4,7 @@
 #
 import sys, rospy, PyQt5, collections, time, math, os
 from datetime import datetime
-from PyQt5 import QtWidgets
+from PyQt5 import QtWidgets, QtGui
 from lib.Windows.configuration_Window import Ui_Configuration_Window
 from lib.Windows.recording_Window import Ui_Recording_Window
 from lib.Tools.startmsg_publisher import StartMsg_Publisher
@@ -18,6 +18,7 @@ class MainWindow(QtWidgets.QMainWindow):
         super(MainWindow, self).__init__(parent)
         self.setFixedSize(892, 600)
 
+        ## Create three topics in order to communicate the start/stop command to the sensors
         self.kinectPublisher = StartMsg_Publisher("/kinect_status")
         self.smartwatchPublisher = StartMsg_Publisher("/smartwatch_status")
         self.mocapPublisher = StartMsg_Publisher("/mocap_status")
@@ -34,6 +35,7 @@ class MainWindow(QtWidgets.QMainWindow):
         ## List to store the gesture sequence to be performed
         self.completeGestureSequence = []
 
+        ## Initialize the configuration window (later it will be the tutorial 1)
         self.startConfigurationWindow()
 
     ## function startConfigurationWindow 
@@ -112,9 +114,12 @@ class MainWindow(QtWidgets.QMainWindow):
                 ## If the user has set all combo boxes to "None" we default to a sequence containing only one gesture
                 if len(self.completeGestureSequence) == 0:
                     self.completeGestureSequence = [0]
-            print(self.completeGestureSequence)
+
             ## Compute the total recording time (we assume that every gesture will be performed for 30 seconds)
             self.totalTime = 30 * len(self.completeGestureSequence)
+
+        ## Check
+        print(self.completeGestureSequence)
 
         ## Initialize recording window
         self.recording_Window = Ui_Recording_Window()
@@ -122,6 +127,12 @@ class MainWindow(QtWidgets.QMainWindow):
         self.recording_Window.setupUi(self.recording_Widget)
         self.recording_Widget.setWindowTitle("Recording")
         self.setCentralWidget(self.recording_Widget)
+
+        ## Set the total time label accordingly
+        self.recording_Window.Total_Time_Label.setText("/" + str(math.floor(self.totalTime / 60)) + ":" + str(self.totalTime % 60))
+
+        ## Set a welcoming image
+        self.recording_Window.Gesture_Image_Label.setPixmap(QtGui.QPixmap("pictures/Hello.jpg"))
 
         ## Setting the GoBack button to go back to the configuration window if clicked
         self.recording_Window.GoBack_Button.clicked.connect(self.startConfigurationWindow)
@@ -162,8 +173,12 @@ class MainWindow(QtWidgets.QMainWindow):
         ## Create the recording folder
         self.createRecordingFolder()
 
-        ## Fill in the personal informations file 
+        ## Create and fill in the personal informations file 
         self.personalInfoFilepath = os.path.join(self.recordingDirectory, "Personal_Informations.txt")
+        
+        ## Check
+        print(self.personalInfoFilepath)
+
         self.pinfoFile = open(self.personalInfoFilepath, 'w')
         self.lines = ["Name is: " + self.personal_Info.name + "\n", 
                       "Surname is: " + self.personal_Info.surname + "\n", 
@@ -195,6 +210,10 @@ class MainWindow(QtWidgets.QMainWindow):
         time.sleep(1)
         self.recording_Window.Countdown_Value_Label.setText("1")
         time.sleep(1)
+
+        ## Clear the labels
+        self.recording_Window.Countdown_Value_Label.setText("")
+        self.recording_Window.Countdown_Title_Label.setText("")
 
         ## If all the check boxes are unchecked use as default sensor the Kinect
         if not self.useKinect and not self.useSmartwatch and not self.useMOCAP:
@@ -246,11 +265,15 @@ class MainWindow(QtWidgets.QMainWindow):
     #  @param self The object pointer
     def createRecordingFolder(self):
         ## Build up the folder path such that we can't get dupes
-        self.workingDirectory = os.getcwd()
+        self.workingDirectory = os.path.dirname(os.path.abspath(__file__))
+        print(self.workingDirectory)
         self.parentDirectory = os.path.dirname(self.workingDirectory)
         self.now = datetime.now()
         self.folderName = self.now.strftime("%m_%d_%Y_%H-%M-%S")
         self.recordingDirectory = os.path.join(self.parentDirectory, "files", self.folderName)
+
+        ## Check
+        print(self.recordingDirectory)
 
         ## If the directory doesn't already exist then create it
         if not os.path.exists(self.recordingDirectory):
@@ -293,20 +316,40 @@ class MainWindow(QtWidgets.QMainWindow):
 
             ## If a multiple of 30 seconds has passed, update the image shown with the next one
             if (self.currentTime % 30) == 0:
-                self.updateImage(self.currentTime / 30)
+                self.updateImage(int(self.currentTime / 30))
 
             time.sleep(1)
 
         self.stopSignal = False
 
+        ## Disable the PlayStop button, set the progress bar to the maximum value and update the current time
+        self.recording_Window.PlayStop_Button.setEnabled(False)
+        self.recording_Window.Time_Elapsed_ProgressBar.setProperty("value", 100)
+        self.recording_Window.Current_Time_Label.setText(self.recording_Window.Total_Time_Label.text())
+
+        ## Notify that the recording has finished (how? maybe show an image with written "recording has finished")
+
     ## function updateImage
     #  Function that updates the image to be shown to the user
     #  @param self The object pointer
     #  @param gesturePosition The position in the array of the gesture whose image must be shown
-    #def updateImage(self, gesturePosition):
-        ## See which gesture sequence[gesturePosition] corresponds to and show its image
-        # switch sequence[gesturePosition]:
-        # ...
+    def updateImage(self, gesturePosition):
+        ## Obtain which gesture in the sequence we have to show
+        self.currentGesture = self.completeGestureSequence[gesturePosition]
+
+        ## Show the corresponding image
+        if self.currentGesture == 0:
+            self.recording_Window.Gesture_Image_Label.setPixmap(QtGui.QPixmap("pictures/Drinking.jpg"))
+        elif self.currentGesture == 1:
+            self.recording_Window.Gesture_Image_Label.setPixmap(QtGui.QPixmap("pictures/Pouring.jpg"))
+        elif self.currentGesture == 2:
+            self.recording_Window.Gesture_Image_Label.setPixmap(QtGui.QPixmap("pictures/Sitting_Down.jpg"))
+        elif self.currentGesture == 3:
+            self.recording_Window.Gesture_Image_Label.setPixmap(QtGui.QPixmap("pictures/Standing_Up.jpg"))
+        elif self.currentGesture == 4:
+            self.recording_Window.Gesture_Image_Label.setPixmap(QtGui.QPixmap("pictures/Walking.jpg"))
+        else:
+            print("Something went wrong.")
 
 
 if __name__ == '__main__':
