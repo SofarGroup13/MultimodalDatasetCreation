@@ -14,12 +14,12 @@ def gesture_generator(req):
         for index in range(n):
             if index < 5:
                 if index==0:
-                    response.append(random.randint(1,5))
+                    response.append(random.randint(0,4))
                 else:
                     response.append(choice([i for i in range(0,5) if i not in response]))
             else:
                 response.append(random.randint(0,4))
-        print(response)
+        ##print(response)
         return GestureSequenceResponse(response)
     
 
