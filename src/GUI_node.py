@@ -4,7 +4,7 @@
 #
 import sys, rospy, PyQt5, collections, time, math, os, threading
 from datetime import datetime
-from PyQt5 import QtWidgets, QtGui
+from PyQt5 import QtWidgets, QtGui, QtCore
 from lib.Windows.configuration_Window import Ui_Configuration_Window
 from lib.Windows.recording_Window import Ui_Recording_Window
 from lib.Tools.startmsg_publisher import StartMsg_Publisher
@@ -22,9 +22,6 @@ class MainWindow(QtWidgets.QMainWindow):
         self.kinectPublisher = StartMsg_Publisher("/kinect_status")
         self.smartwatchPublisher = StartMsg_Publisher("/smartwatch_status")
         self.mocapPublisher = StartMsg_Publisher("/mocap_status")
-
-        ## Variable needed to notify when the stop button is clicked in order to stop the recording
-        self.stopSignal = False
 
         ## Variable to store the total recording time in seconds
         self.totalTime = 0
@@ -60,7 +57,6 @@ class MainWindow(QtWidgets.QMainWindow):
 
         self.show()
 
-
     ## function selectCasualSequence 
     #  Management of the mutual exclusion between choosing a random sequence or a predefined one
     #  @param self The object pointer.
@@ -80,7 +76,6 @@ class MainWindow(QtWidgets.QMainWindow):
             self.configuration_Window.Third_Gesture_Selection.setEnabled(True)
             self.configuration_Window.Fourth_Gesture_Selection.setEnabled(True)
             self.configuration_Window.Fifth_Gesture_Selection.setEnabled(True)
-            
         
     ## function goToRecording
     #  Function that shows the recording window
@@ -112,12 +107,12 @@ class MainWindow(QtWidgets.QMainWindow):
             self.completeGestureSequence = [self.firstGesture, self.secondGesture, self.thirdGesture, self.fourthGesture, self.fifthGesture]
 
             ## If the user has set one or more combo boxes to "None" we have to remove their values
-            if 5 in self.completeGestureSequence:
+            while 5 in self.completeGestureSequence:
                 self.completeGestureSequence.remove(5)
 
-                ## If the user has set all combo boxes to "None" we default to a sequence containing only one gesture
-                if len(self.completeGestureSequence) == 0:
-                    self.completeGestureSequence = [0]
+            ## If the user has set all combo boxes to "None" we default to a sequence containing only one gesture
+            if len(self.completeGestureSequence) == 0:
+                self.completeGestureSequence = [0]
 
             ## Compute the total recording time (we assume that every gesture will be performed for 30 seconds)
             self.totalTime = 30 * len(self.completeGestureSequence)
@@ -136,15 +131,21 @@ class MainWindow(QtWidgets.QMainWindow):
         self.recording_Window.GoBack_Button.clicked.connect(self.startConfigurationWindow)
 
         ## When the PlayStop button is pressed the countdown is started
-        self.recording_Window.PlayStop_Button.clicked.connect(self.startCountdown)
+        self.recording_Window.PlayStop_Button.clicked.connect(self.recordingInit)
 
         self.show()
+
+        ## Counter used for the countdown
+        self.countdownCounter = 11
+
+        ## Variable needed to notify when the stop button is clicked in order to stop the recording
+        self.stopSignal = False
 
         ## Set the total time label accordingly
         self.recording_Window.Total_Time_Label.setText("/" + str(math.floor(self.totalTime / 60)) + ":" + str(self.totalTime % 60))
 
         ## Set a welcoming image
-        self.helloDirectory = os.path.join(self.parentDirectory, "pictures", "Hello.jpg")
+        self.helloDirectory = os.path.join(self.parentDirectory, "gui_content", "pictures", "Hello.jpg")
         print(self.helloDirectory)
         self.recording_Window.Gesture_Image_Label.setPixmap(QtGui.QPixmap(self.helloDirectory))
 
@@ -168,13 +169,16 @@ class MainWindow(QtWidgets.QMainWindow):
         self.gesture_sequence_client = Gesture_Sequence_Client(int(self.configuration_Window.Gestures_Number_Edit.text()))
         return self.gesture_sequence_client.gesture_sequence
 
-    ## function startCountdown
+    ## function recordingInit
     #  Function called when the play button is clicked to start the countdown before the recording starts
     #  @param self The object pointer
-    def startCountdown(self):
+    def recordingInit(self):
         ## Change the play button to stop button and set it as disabled
         self.recording_Window.PlayStop_Button.setText("Stop")
         self.recording_Window.PlayStop_Button.setEnabled(False)
+
+        ## Disable the go back button
+        self.recording_Window.GoBack_Button.setEnabled(False)
 
         ## Create the recording folder
         self.createRecordingFolder()
@@ -196,30 +200,29 @@ class MainWindow(QtWidgets.QMainWindow):
         self.pinfoFile.close()
 
         ## Show the countdown onto the screen
-        ##self.countdownEvent = threading.Event()
+        self.countdownTimer = QtCore.QTimer()
+        self.countdownTimer.setSingleShot(False)
+        self.countdownTimer.timeout.connect(self.showCountdown)
+        self.countdownTimer.start(1000)
 
-        ## Change to responsive (also label doesn't change dunno why)
-        self.recording_Window.Countdown_Value_Label.setText("10")
-        self.countdownEvent.wait(timeout=5)
-        self.recording_Window.Countdown_Value_Label.setText("9")
-        self.countdownEvent.wait(timeout=1)
-        self.recording_Window.Countdown_Value_Label.setText("8")
-        self.countdownEvent.wait(timeout=1)
-        self.recording_Window.Countdown_Value_Label.setText("7")
-        self.countdownEvent.wait(timeout=1)
-        self.recording_Window.Countdown_Value_Label.setText("6")
-        self.countdownEvent.wait(timeout=1)
-        self.recording_Window.Countdown_Value_Label.setText("5")
-        self.countdownEvent.wait(timeout=1)
-        self.recording_Window.Countdown_Value_Label.setText("4")
-        self.countdownEvent.wait(timeout=1)
-        self.recording_Window.Countdown_Value_Label.setText("3")
-        self.countdownEvent.wait(timeout=1)
-        self.recording_Window.Countdown_Value_Label.setText("2")
-        self.countdownEvent.wait(timeout=1)
-        self.recording_Window.Countdown_Value_Label.setText("1")
-        self.countdownEvent.wait(timeout=1)
+    ## function showCountdown
+    #  Function that allows to show the countdown on the window
+    #  @param self The object pointer
+    def showCountdown(self):
+        self.countdownCounter -= 1
 
+        if self.countdownCounter > 0:
+            self.recording_Window.Countdown_Value_Label.setText(str(self.countdownCounter))
+        else:
+            self.countdownTimer.stop()
+
+            ## Execute the sensorInit function
+            self.sensorsInit()
+
+    ## function sensorsInit
+    #  Function that creates the sensor files and publishes the correct start commands
+    #  @param self The object pointer
+    def sensorsInit(self):
         ## Clear the labels
         self.recording_Window.Countdown_Value_Label.setText("")
         self.recording_Window.Countdown_Title_Label.setText("")
@@ -263,11 +266,12 @@ class MainWindow(QtWidgets.QMainWindow):
                 self.mocapPublisher.publish("1")
 
         ## Set the stop button to be enabled and connect to it the stopRecording function
+        self.recording_Window.PlayStop_Button.disconnect()
         self.recording_Window.PlayStop_Button.clicked.connect(self.stopRecording)
         self.recording_Window.PlayStop_Button.setEnabled(True)
 
-        ## Execute the userFeedback function
-        self.userFeedback()
+        ## Execute the feedbackInit function
+        self.feedbackInit()
 
     ## function createRecordingFolder
     #  Function that creates the current recording folder
@@ -291,23 +295,36 @@ class MainWindow(QtWidgets.QMainWindow):
     #  Function that is called when the user presses the stop button to stop the recording before the predefined time
     #  @param self The object pointer
     def stopRecording(self):
-        ## Set the stopSignal to true to stop the userFeedback function
+        ## Set the stopSignal to true to stop the recordingFeedback function
         self.stopSignal = True
 
-    ## function userFeedback
-    #  Function that deals with updating the current time and updating images
+    ## function feedbackInit
+    #  Function that initializes the parameters needed for the feedback
     #  @param self The object pointer
-    def userFeedback(self):
+    def feedbackInit(self):
         self.currentTime = 0
         self.currentMinutes = 0
         self.currentSeconds = 0
 
-        self.updateTimeEvent = threading.Event()
+        ## Initialize the timer
+        self.feedbackTimer = QtCore.QTimer()
+        self.feedbackTimer.setSingleShot(False)
+        self.feedbackTimer.timeout.connect(self.recordingFeedback)
 
         ## Show the image of the first gesture to be performed
         self.updateImage(0)
 
-        while not self.stopSignal and (self.currentTime != self.totalTime):
+        ## Start the timer to expire every 1 second
+        self.feedbackTimer.start(1000)
+
+    ## function recordingFeedback
+    #  Function that deals with updating the current time and eventually calling the updateImage function
+    #  @param self The object pointer
+    def recordingFeedback(self):
+        ## Increment the current time by 1 (second)
+        self.currentTime = self.currentTime + 1
+
+        if not self.stopSignal and (self.currentTime != self.totalTime):
             ## Compute the minutes and seconds elapsed
             self.currentMinutes = math.floor(self.currentTime / 60)
             self.currentSeconds = self.currentTime % 60
@@ -319,26 +336,21 @@ class MainWindow(QtWidgets.QMainWindow):
             ## If a multiple of 30 seconds has passed, update the image shown with the next one
             if (self.currentTime % 30) == 0:
                 self.updateImage(int(self.currentTime / 30))
+        else:
+            self.feedbackTimer.stop()
 
-            ## Increment the current time by 1 (second)
-            self.currentTime = self.currentTime + 1
+            ## Stop the sensors from sending other data
+            self.kinectPublisher.publish("0")
+            self.smartwatchPublisher.publish("0")
+            self.mocapPublisher.publish("0")
 
-            self.updateTimeEvent.wait(timeout=1)
+            ## Disable the PlayStop button, enable the GoBack button, set the progress bar to the maximum value and update the current time
+            self.recording_Window.PlayStop_Button.setEnabled(False)
+            self.recording_Window.GoBack_Button.setEnabled(True)
+            self.recording_Window.Time_Elapsed_ProgressBar.setProperty("value", 100)
+            self.recording_Window.Current_Time_Label.setText(str(math.floor(self.totalTime / 60)) + ":" + str(self.totalTime % 60))
 
-        ## Stop the sensors from sending other data
-        self.kinectPublisher.publish("0")
-        self.smartwatchPublisher.publish("0")
-        self.mocapPublisher.publish("0")
-
-        if self.stopSignal == True:
-            self.stopSignal = False
-
-        ## Disable the PlayStop button, set the progress bar to the maximum value and update the current time
-        self.recording_Window.PlayStop_Button.setEnabled(False)
-        self.recording_Window.Time_Elapsed_ProgressBar.setProperty("value", 100)
-        self.recording_Window.Current_Time_Label.setText(self.recording_Window.Total_Time_Label.text())
-
-        ## Notify that the recording has finished (how? maybe show an image with written "recording has finished")
+            ## Notify that the recording has finished (how? maybe show an image with written "recording has finished")
 
     ## function updateImage
     #  Function that updates the image to be shown to the user
