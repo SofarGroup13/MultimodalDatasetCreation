@@ -97,7 +97,7 @@ class MainWindow(QtWidgets.QMainWindow):
             ## Compute the total recording time (we assume that every gesture will be performed for 30 seconds)
             self.totalTime = 30 * len(self.completeGestureSequence)
         else:
-            ## Obtain the sequence from the combo boxes and create the integer array
+            ## Obtain the sequence from the combo boxes and create a list of integers
             self.firstGesture = self.configuration_Window.First_Gesture_Selection.currentIndex()
             self.secondGesture = self.configuration_Window.Second_Gesture_Selection.currentIndex()
             self.thirdGesture = self.configuration_Window.Third_Gesture_Selection.currentIndex()
@@ -106,19 +106,16 @@ class MainWindow(QtWidgets.QMainWindow):
 
             self.completeGestureSequence = [self.firstGesture, self.secondGesture, self.thirdGesture, self.fourthGesture, self.fifthGesture]
 
-            ## If the user has set one or more combo boxes to "None" we have to remove their values
+            ## If the user has set one or more combo boxes to "None" we have to remove all the instances of 5 from the list
             while 5 in self.completeGestureSequence:
                 self.completeGestureSequence.remove(5)
 
-            ## If the user has set all combo boxes to "None" we default to a sequence containing only one gesture
+            ## If the user has set all combo boxes to "None" the program uses a default sequence containing only one gesture
             if len(self.completeGestureSequence) == 0:
                 self.completeGestureSequence = [0]
 
             ## Compute the total recording time (we assume that every gesture will be performed for 30 seconds)
             self.totalTime = 30 * len(self.completeGestureSequence)
-
-        ## Check
-        print(self.completeGestureSequence)
 
         ## Initialize recording window
         self.recording_Window = Ui_Recording_Window()
@@ -130,7 +127,7 @@ class MainWindow(QtWidgets.QMainWindow):
         ## Setting the GoBack button to go back to the configuration window if clicked
         self.recording_Window.GoBack_Button.clicked.connect(self.startConfigurationWindow)
 
-        ## When the PlayStop button is pressed the countdown is started
+        ## When the Play button is pressed the recording is initialized
         self.recording_Window.PlayStop_Button.clicked.connect(self.recordingInit)
 
         self.show()
@@ -138,10 +135,10 @@ class MainWindow(QtWidgets.QMainWindow):
         ## Counter used for the countdown
         self.countdownCounter = 11
 
-        ## Variable needed to notify when the stop button is clicked in order to stop the recording
+        ## Variable needed to notify when the Stop button is clicked in order to stop the recording
         self.stopSignal = False
 
-        ## Set the total time label accordingly
+        ## Set the total time label value
         self.recording_Window.Total_Time_Label.setText("/" + str(math.floor(self.totalTime / 60)) + ":" + str(self.totalTime % 60))
 
         ## Set a welcoming image
@@ -166,18 +163,28 @@ class MainWindow(QtWidgets.QMainWindow):
     #  Makes a request to the service to get the random gesture sequence
     #  @param self The object pointer
     def askGestureSequence(self):
-        self.gesture_sequence_client = Gesture_Sequence_Client(int(self.configuration_Window.Gestures_Number_Edit.text()))
+        ## Parse the user input
+        try:
+            isInt = int(self.configuration_Window.Gestures_Number_Edit.text())
+            self.gesture_sequence_client = Gesture_Sequence_Client(isInt)
+        except ValueError:
+            try:
+                isFloat = float(self.configuration_Window.Gestures_Number_Edit.text())
+                self.gesture_sequence_client = Gesture_Sequence_Client(math.floor(isFloat))
+            except ValueError:
+                ## If the user didn't use a number as input we simply call the service with "0"
+                self.gesture_sequence_client = Gesture_Sequence_Client(0)
         return self.gesture_sequence_client.gesture_sequence
 
     ## function recordingInit
-    #  Function called when the play button is clicked to start the countdown before the recording starts
+    #  Function called when the Play button is clicked to start the countdown before the recording starts
     #  @param self The object pointer
     def recordingInit(self):
-        ## Change the play button to stop button and set it as disabled
+        ## Change the Play button into the Stop button and set it as disabled
         self.recording_Window.PlayStop_Button.setText("Stop")
         self.recording_Window.PlayStop_Button.setEnabled(False)
 
-        ## Disable the go back button
+        ## Disable the GoBack button
         self.recording_Window.GoBack_Button.setEnabled(False)
 
         ## Create the recording folder
@@ -185,9 +192,6 @@ class MainWindow(QtWidgets.QMainWindow):
 
         ## Create and fill in the personal informations file 
         self.personalInfoFilepath = os.path.join(self.recordingDirectory, "Personal_Informations.txt")
-        
-        ## Check
-        print(self.personalInfoFilepath)
 
         self.pinfoFile = open(self.personalInfoFilepath, 'w')
         self.lines = ["Name is: " + self.personal_Info.name + "\n", 
@@ -199,14 +203,14 @@ class MainWindow(QtWidgets.QMainWindow):
         self.pinfoFile.writelines(self.lines)
         self.pinfoFile.close()
 
-        ## Show the countdown onto the screen
+        ## Create the timer which allows to show the countdown
         self.countdownTimer = QtCore.QTimer()
         self.countdownTimer.setSingleShot(False)
         self.countdownTimer.timeout.connect(self.showCountdown)
         self.countdownTimer.start(1000)
 
     ## function showCountdown
-    #  Function that allows to show the countdown on the window
+    #  Function that shows the countdown on the recording window
     #  @param self The object pointer
     def showCountdown(self):
         self.countdownCounter -= 1
@@ -214,20 +218,21 @@ class MainWindow(QtWidgets.QMainWindow):
         if self.countdownCounter > 0:
             self.recording_Window.Countdown_Value_Label.setText(str(self.countdownCounter))
         else:
+            ## When the countdown finishes the timer is stopped
             self.countdownTimer.stop()
 
-            ## Execute the sensorInit function
+            ## Execute the sensorsInit function
             self.sensorsInit()
 
     ## function sensorsInit
     #  Function that creates the sensor files and publishes the correct start commands
     #  @param self The object pointer
     def sensorsInit(self):
-        ## Clear the labels
+        ## Clear the countdown labels
         self.recording_Window.Countdown_Value_Label.setText("")
         self.recording_Window.Countdown_Title_Label.setText("")
 
-        ## If all the check boxes are unchecked use as default sensor the Kinect
+        ## If all the sensor check boxes are unchecked use as default sensor the Kinect
         if not self.useKinect and not self.useSmartwatch and not self.useMOCAP:
             ## Create the file to contain the kinect data
             self.kinectFilepath = os.path.join(self.recordingDirectory, "Kinect_Data.txt")
@@ -265,7 +270,7 @@ class MainWindow(QtWidgets.QMainWindow):
                 ## Publish the start command for the MOCAP
                 self.mocapPublisher.publish("1")
 
-        ## Set the stop button to be enabled and connect to it the stopRecording function
+        ## Enable the Stop button and connect to it the stopRecording function
         self.recording_Window.PlayStop_Button.disconnect()
         self.recording_Window.PlayStop_Button.clicked.connect(self.stopRecording)
         self.recording_Window.PlayStop_Button.setEnabled(True)
@@ -282,9 +287,6 @@ class MainWindow(QtWidgets.QMainWindow):
         self.folderName = self.now.strftime("%m_%d_%Y_%H-%M-%S")
         self.recordingDirectory = os.path.join(self.parentDirectory, "files", self.folderName)
 
-        ## Check
-        print(self.recordingDirectory)
-
         ## If the directory doesn't already exist then create it
         if not os.path.exists(self.recordingDirectory):
             os.mkdir(self.recordingDirectory)
@@ -292,7 +294,7 @@ class MainWindow(QtWidgets.QMainWindow):
             print(self.recordingDirectory + " already exists.")
 
     ## function stopRecording
-    #  Function that is called when the user presses the stop button to stop the recording before the predefined time
+    #  Function that is called when the user presses the Stop button to halt the recording before the predefined time
     #  @param self The object pointer
     def stopRecording(self):
         ## Set the stopSignal to true to stop the recordingFeedback function
@@ -331,9 +333,13 @@ class MainWindow(QtWidgets.QMainWindow):
 
             ## Show the time progress in the label and in the progress bar
             self.recording_Window.Time_Elapsed_ProgressBar.setProperty("value", round((self.currentTime / self.totalTime) * 100))
-            self.recording_Window.Current_Time_Label.setText(str(self.currentMinutes) + ":" + str(self.currentSeconds))
+            
+            if self.currentSeconds < 10:
+                self.recording_Window.Current_Time_Label.setText(str(self.currentMinutes) + ":0" + str(self.currentSeconds))
+            else:
+                self.recording_Window.Current_Time_Label.setText(str(self.currentMinutes) + ":" + str(self.currentSeconds))
 
-            ## If a multiple of 30 seconds has passed, update the image shown with the next one
+            ## If a multiple of 30 seconds has passed, update the image shown
             if (self.currentTime % 30) == 0:
                 self.updateImage(int(self.currentTime / 30))
         else:
@@ -360,9 +366,7 @@ class MainWindow(QtWidgets.QMainWindow):
         ## Obtain which gesture in the sequence we have to show
         self.currentGesture = self.completeGestureSequence[gesturePosition]
 
-        ## Check
-        print(self.currentGesture)
-
+        ## Obtain the paths of the images
         self.picturesDirectory = os.path.join(self.parentDirectory, "gui_content", "pictures")
         self.drinkingDirectory = os.path.join(self.picturesDirectory, "Drinking.jpg")
         self.pouringDirectory = os.path.join(self.picturesDirectory, "Pouring.jpg")

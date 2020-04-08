@@ -8,19 +8,22 @@ from multimodal_dataset_creation.srv import GestureSequence, GestureSequenceResp
 #  Generate a random gesture sequence 
 #  @param req The request value(num_of_gestures)
 def gesture_generator(req):
+    if req.num_of_gestures == 0:
+        n = 1
+    else:
         n = req.num_of_gestures
-        response = []
+        
+    response = []
 
-        for index in range(n):
-            if index < 5:
-                if index==0:
-                    response.append(random.randint(0,4))
-                else:
-                    response.append(choice([i for i in range(0,5) if i not in response]))
-            else:
+    for index in range(n):
+        if index < 5:
+            if index==0:
                 response.append(random.randint(0,4))
-        ##print(response)
-        return GestureSequenceResponse(response)
+            else:
+                response.append(choice([i for i in range(0,5) if i not in response]))
+        else:
+            response.append(random.randint(0,4))
+    return GestureSequenceResponse(response)
     
 
 if __name__ == "__main__":
