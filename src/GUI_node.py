@@ -7,6 +7,8 @@ from datetime import datetime
 from PyQt5 import QtWidgets, QtGui, QtCore
 from lib.Windows.configuration_Window import Ui_Configuration_Window
 from lib.Windows.recording_Window import Ui_Recording_Window
+from lib.Windows.welcome_Window import Ui_Welcome_Window
+from lib.Windows.configurationTutorial_Window import Ui_ConfigurationTutorial_Window
 from lib.Tools.startmsg_publisher import StartMsg_Publisher
 from lib.Tools.gesture_sequence_client import Gesture_Sequence_Client
 
@@ -37,7 +39,76 @@ class MainWindow(QtWidgets.QMainWindow):
         self.completeGestureSequence = []
 
         ## Initialize the configuration window (later it will be the tutorial 1)
-        self.startConfigurationWindow()
+        self.startWelcomeWindow()
+
+    ## function startWelcomeWindow 
+    #  Function that shows the welcome window
+    #  @param self The object pointer
+    def startWelcomeWindow(self):
+        self.welcome_Window = Ui_Welcome_Window()
+        self.welcome_Widget = QtWidgets.QWidget()
+        self.welcome_Window.setupUi(self.welcome_Widget)
+        self.welcome_Widget.setWindowTitle("Welcome")
+        self.setCentralWidget(self.welcome_Widget)
+
+        ## Go tothe tutorial window when the GoToTutorial button is clicked
+        self.welcome_Window.GoToTutorial_Button.clicked.connect(self.startConfigurationTutorialWindow)
+
+        ## Go directly to the configuration window when the SkipTutorial button is clicked
+        self.welcome_Window.SkipTutorial_Button.clicked.connect(self.startConfigurationWindow)
+
+        self.show()
+
+    ## function startConfigurationTutorialWindow 
+    #  Function that shows the configuration tutorial window
+    #  @param self The object pointer
+    def startConfigurationTutorialWindow(self):
+        self.configurationTutorial_Window = Ui_ConfigurationTutorial_Window()
+        self.configurationTutorial_Widget = QtWidgets.QWidget()
+        self.configurationTutorial_Window.setupUi(self.configurationTutorial_Widget)
+        self.configurationTutorial_Widget.setWindowTitle("Configuration_Tutorial")
+        self.setCentralWidget(self.configurationTutorial_Widget)
+
+        ## Go to the second part of the tutorial when the Next button is clicked
+        self.configurationTutorial_Window.Next_Button.clicked.connect(self.configurationTutorialSecondPart)
+
+        self.show()
+
+    ## function configurationTutorialSecondPart
+    #  Function that shows the second part of the configuration tutorial
+    #  @param self The object pointer
+    def configurationTutorialSecondPart(self):
+        ## Change the informative text
+        self.configurationTutorial_Window.ConfigurationTutorialText_Label.setText("<html><head/><body><p>These are the <span style=\" font-style:italic;\">gesture sequence options</span>. You can choose either a random sequence of a certain number of gestures or define one yourself by selecting up to 5 gestures.</p><p>The field &quot;Number of gestures&quot; accepts <span style=\" font-weight:600;\">integer numbers or floating point numbers</span> (which will be rounded to the nearest integer).</p></body></html>")
+
+        ## Change the related image
+        self.secondTutorialDirectory = os.path.join(self.parentDirectory, "gui_content", "pictures", "Gesture_Sequence_Options.png")
+        self.configurationTutorial_Window.ConfigurationTutorialImage_Label.setPixmap(QtGui.QPixmap(self.secondTutorialDirectory))
+
+        ## Go to the third part of the tutorial when the Next button is clicked
+        self.configurationTutorial_Window.Next_Button.disconnect()
+        self.configurationTutorial_Window.Next_Button.clicked.connect(self.configurationTutorialThirdPart)
+
+    ## function configurationTutorialThirdPart
+    #  Function that shows the third part of the configuration tutorial
+    #  @param self The object pointer
+    def configurationTutorialThirdPart(self):
+        ## Change the informative text
+        self.configurationTutorial_Window.ConfigurationTutorialText_Label.setText("<html><head/><body><p>These are the <span style=\" font-style:italic;\">sensor options</span>. Check the boxes corresponding to the sensors you want to use for the current dataset.</p><p><br/></p><p>If you don't check any box, the application will automatically use <span style=\" font-weight:600;\">only the Kinect sensor</span>.</p></body></html>")
+
+        ## Change the related image
+        self.thirdTutorialDirectory = os.path.join(self.parentDirectory, "gui_content", "pictures", "Sensors_Options.png")
+        self.configurationTutorial_Window.ConfigurationTutorialImage_Label.setPixmap(QtGui.QPixmap(self.thirdTutorialDirectory))
+
+        ## Go to the third part of the tutorial when the Next button is clicked
+        self.configurationTutorial_Window.Next_Button.disconnect()
+        self.configurationTutorial_Window.Next_Button.clicked.connect(self.startRecordingTutorialWindow)
+
+    ## function startRecordingTutorialWindow
+    #  Function that shows the recording tutorial window
+    #  @param self The object pointer
+    def startRecordingTutorialWindow(self):
+        ##
 
     ## function startConfigurationWindow 
     #  Function that shows the configuration window
@@ -165,12 +236,12 @@ class MainWindow(QtWidgets.QMainWindow):
     def askGestureSequence(self):
         ## Parse the user input
         try:
-            isInt = int(self.configuration_Window.Gestures_Number_Edit.text())
-            self.gesture_sequence_client = Gesture_Sequence_Client(isInt)
+            intInput = int(self.configuration_Window.Gestures_Number_Edit.text())
+            self.gesture_sequence_client = Gesture_Sequence_Client(intInput)
         except ValueError:
             try:
-                isFloat = float(self.configuration_Window.Gestures_Number_Edit.text())
-                self.gesture_sequence_client = Gesture_Sequence_Client(math.floor(isFloat))
+                floatInput = float(self.configuration_Window.Gestures_Number_Edit.text())
+                self.gesture_sequence_client = Gesture_Sequence_Client(round(floatInput))
             except ValueError:
                 ## If the user didn't use a number as input we simply call the service with "0"
                 self.gesture_sequence_client = Gesture_Sequence_Client(0)
