@@ -44,7 +44,6 @@ class Ui_ConfigurationTutorial_Window(object):
         self.ConfigurationTutorialImage_Label.setGeometry(QtCore.QRect(475, 100, 300, 400))
 
         self.ConfigurationTutorialImage_Label.setText("")
-        self.ConfigurationTutorialImage_Label.setPixmap(QtGui.QPixmap("../../../gui_content/pictures/Personal_Info.png"))
         self.ConfigurationTutorialImage_Label.setScaledContents(True)
 
         self.ConfigurationTutorialImage_Label.setObjectName("ConfigurationTutorialImage_Label")

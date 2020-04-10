@@ -9,6 +9,7 @@ from lib.Windows.configuration_Window import Ui_Configuration_Window
 from lib.Windows.recording_Window import Ui_Recording_Window
 from lib.Windows.welcome_Window import Ui_Welcome_Window
 from lib.Windows.configurationTutorial_Window import Ui_ConfigurationTutorial_Window
+from lib.Windows.recordingTutorial_Window import Ui_RecordingTutorial_Window
 from lib.Tools.startmsg_publisher import StartMsg_Publisher
 from lib.Tools.gesture_sequence_client import Gesture_Sequence_Client
 
@@ -69,6 +70,10 @@ class MainWindow(QtWidgets.QMainWindow):
         self.configurationTutorial_Widget.setWindowTitle("Configuration_Tutorial")
         self.setCentralWidget(self.configurationTutorial_Widget)
 
+        ## Show the first tutorial image
+        self.firstTutorialDirectory = os.path.join(self.parentDirectory, "gui_content", "pictures", "Personal_Info.png")
+        self.configurationTutorial_Window.ConfigurationTutorialImage_Label.setPixmap(QtGui.QPixmap(self.firstTutorialDirectory))
+
         ## Go to the second part of the tutorial when the Next button is clicked
         self.configurationTutorial_Window.Next_Button.clicked.connect(self.configurationTutorialSecondPart)
 
@@ -108,7 +113,16 @@ class MainWindow(QtWidgets.QMainWindow):
     #  Function that shows the recording tutorial window
     #  @param self The object pointer
     def startRecordingTutorialWindow(self):
-        ##
+        self.recordingTutorial_Window = Ui_RecordingTutorial_Window()
+        self.recordingTutorial_Widget = QtWidgets.QWidget()
+        self.recordingTutorial_Window.setupUi(self.recordingTutorial_Widget)
+        self.recordingTutorial_Widget.setWindowTitle("Recording_Tutorial")
+        self.setCentralWidget(self.recordingTutorial_Widget)
+
+        ## Finish the tutorial and go to the configuration window when the Continue button is clicked
+        self.recordingTutorial_Window.Continue_Button.clicked.connect(self.startConfigurationWindow)
+
+        self.show()
 
     ## function startConfigurationWindow 
     #  Function that shows the configuration window
@@ -214,7 +228,6 @@ class MainWindow(QtWidgets.QMainWindow):
 
         ## Set a welcoming image
         self.helloDirectory = os.path.join(self.parentDirectory, "gui_content", "pictures", "Hello.jpg")
-        print(self.helloDirectory)
         self.recording_Window.Gesture_Image_Label.setPixmap(QtGui.QPixmap(self.helloDirectory))
 
     ## function savePersonalInfo 
