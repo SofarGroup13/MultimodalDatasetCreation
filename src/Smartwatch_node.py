@@ -3,6 +3,10 @@ import rospy
 from sensor_msgs.msg import Imu
 from std_msgs.msg import Header
 
+
+def callback1(data):
+    data.data
+
 class Fromsmart(object):
     def init(self):
         self.update_rate = 100
@@ -10,12 +14,10 @@ class Fromsmart(object):
         self.dataPublished = False
 
         self.pub_imu = rospy.Publisher('/imu_data', Imu, queue_size= 1 )
-        rospy.Subscriber('/smartwatch_status', Header, self.callback)
+        rospy.Subscriber('/smartwatch_status', Header, callback1)
         rospy.Subscriber('/inertial', Imu, self.callbackImu)
 
-    def callback(self, msg):
-        self.message = Header()
-        self.Published = True
+
 
     def callbackImu(self,data):
             self.data = data
