@@ -12,6 +12,7 @@ from lib.Windows.configurationTutorial_Window import Ui_ConfigurationTutorial_Wi
 from lib.Windows.recordingTutorial_Window import Ui_RecordingTutorial_Window
 from lib.Tools.startmsg_publisher import StartMsg_Publisher
 from lib.Tools.gesture_sequence_client import Gesture_Sequence_Client
+from lib.Tools.gesture_publisher import Gesture_Bag
 
 ## class MainWindow
 #   
@@ -353,6 +354,9 @@ class MainWindow(QtWidgets.QMainWindow):
 
                 ## Publish the start command for the MOCAP
                 self.mocapPublisher.publish("1")
+        
+        ## Store the gesture sequence in a rosbag for the segmentation
+        self.gesture_bag = Gesture_Bag(self.completeGestureSequence, self.recordingDirectory)
 
         ## Enable the Stop button and connect to it the stopRecording function
         self.recording_Window.PlayStop_Button.disconnect()
