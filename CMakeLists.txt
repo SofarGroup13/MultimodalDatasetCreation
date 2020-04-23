@@ -9,7 +9,10 @@ project(multimodal_dataset_creation)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
   rospy
+  roscpp
   std_msgs
+  sensor_msgs
+  geometry_msgs
   message_generation
 )
 
@@ -47,11 +50,10 @@ find_package(catkin REQUIRED COMPONENTS
 ##   * add every package in MSG_DEP_SET to generate_messages(DEPENDENCIES ...)
 
 ## Generate messages in the 'msg' folder
-# add_message_files(
-#   FILES
-#   Message1.msg
-#   Message2.msg
-# )
+ add_message_files(
+   FILES
+   
+ )
 
 ## Generate services in the 'srv' folder
 add_service_files(
@@ -70,6 +72,8 @@ add_service_files(
  generate_messages(
    DEPENDENCIES
    std_msgs
+   geometry_msgs
+   sensor_msgs
  )
 
 ################################################
@@ -104,7 +108,7 @@ add_service_files(
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES multimodal_dataset_creation
-#  CATKIN_DEPENDS rospy std_msgs
+  CATKIN_DEPENDS rospy std_msgs geometry_msgs roscpp message_runtime
 #  DEPENDS system_lib
 )
 
