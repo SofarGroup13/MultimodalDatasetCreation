@@ -13,5 +13,8 @@
     <node pkg="multimodal_dataset_creation" type="Recorder_PC.py" 
 name="recordPC" output="screen">
     </node>
+    <node pkg="multimodal_dataset_creation" type="Recorder_IMU.py"
+name=recordIMU" output="screen">
+    </node>
 
 </launch>
