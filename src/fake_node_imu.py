@@ -1,5 +1,8 @@
 #! /usr/bin/env python3.5
 
+#This node is created for the creation of fake rosmessage sensor_msgs/Imu, setting all values for Smartwatch Node to 0
+#Taking into account the structure of this type of message (http://docs.ros.org/melodic/api/sensor_msgs/html/msg/Imu.html)
+
 import rospy
 from sensor_msgs.msg import Imu
 

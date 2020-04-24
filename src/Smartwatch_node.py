@@ -1,8 +1,11 @@
 #! /usr/bin/env python3.5
+
+#This node is the node capable of taking specific data (sensor_msgs/Imu) from Smartwatch (or from the fake_node_Imu) and publish a topic with these.
+
 import rospy
 from sensor_msgs.msg import Imu
 from std_msgs.msg import Header
-#from multimodal_dataset_creation.msg import FakeImu1 #import fake_msg
+
 
 
 #defining node
@@ -13,14 +16,14 @@ class Fromsmart(object):
         self.flagstart =False
         #frequency
         self.update_rate = 100
-        #data frum Smartwatch
+        #data from Smartwatch
         self.data = Imu()
         self.dataPublished = False
 
         self.pub_imu = rospy.Publisher('/imu_data', Imu, queue_size= 1 )
         rospy.Subscriber('/smartwatch_status', Header, self.callback1)
 
-        #rospy.Subscriber('/inertial', Imu, self.callbackImu)
+        #rospy.Subscriber('/inertial', Imu, self.callbackImu) #In case there is the link with the Smartwatch sensor.
         rospy.Subscriber('/fake_data_Imu', Imu, self.callbackImu)
 
     def callback1(self,data):
