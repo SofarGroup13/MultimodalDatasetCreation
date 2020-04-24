@@ -39,7 +39,7 @@ class CustomPointCloud(object):
     #initialization
     def __init__(self):
         rospy.init_node('fake_node_pc')
-        self.publisher = rospy.Publisher('/fake_data_PC', PointCloud2, queue_size=1) #publish datas into a topic
+        self.publisher = rospy.Publisher('/fake_data_PC', PointCloud2, queue_size=1) #publish data into a topic
 
     def publish_points(self):
         point_cloud = pc2.create_cloud(HEADER, FIELDS, POINTS) #creation of sensor_msgs/PointCloud2

@@ -1,6 +1,6 @@
 #! /usr/bin/env python
 
-#This node is created for recording all datas from Smartwatch in a Rosbag.
+#This node is created for recording all data from Smartwatch in a Rosbag.
 
 import rosbag
 import rospy
