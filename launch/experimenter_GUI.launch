@@ -14,7 +14,9 @@
 name="recordPC" output="screen">
     </node>
     <node pkg="multimodal_dataset_creation" type="Recorder_IMU.py"
-name=recordIMU" output="screen">
+name="recordIMU" output="screen">
+    </node>
+    <node pkg="multimodal_dataset_creation" type="mocap_fake.cpp" name="mocapfake" output="screen">
     </node>
 
 </launch>
