@@ -1,6 +1,0 @@
-Name is: 
-Surname is: 
-Age is: 
-Gender is: Male
-Height is: 
-Weight is: 
