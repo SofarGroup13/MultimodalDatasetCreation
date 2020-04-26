@@ -41,7 +41,7 @@ class Fromsmart(object):
         r = rospy.Rate(self.update_rate)
         while True:
             try:
-                #if self.dataPublished and self.flagstart:
+                if self.dataPublished and self.flagstart:
 
                     self.pub_imu.publish(self.data) #publish data from /fake_data_imu to topic /imu_data
                     self.dataPublished =False #disable bool

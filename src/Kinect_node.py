@@ -48,7 +48,7 @@ class Kinect(object):
         r = rospy.Rate(self.update_rate)
         while True:
             try:
-                #if self.flagstart and self.flag:
+                if self.flagstart and self.flag:
                     self.pub.publish(self.data)
                     self.selfstart =False
             except KeyboardInterrupt:
