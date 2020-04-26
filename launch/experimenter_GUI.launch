@@ -5,10 +5,10 @@
     </node>
     <node pkg="multimodal_dataset_creation" type="gestures_node.py" name="gesture_sequence_server" output="screen">
     </node>
-    <node pkg="multimodal_dataset_creation" type="Smartwatch_node.py" name="smartdata" output= "screen">
+    <node pkg="multimodal_dataset_creation" type="Smartwatch_node.py" name="smartnode" output= "screen">
       <remap from="/inertial" to = "$(arg inertial_sub_topic)"/>
     </node>
-    <node pkg="multimodal_dataset_creation" type="Kinect_node.py" name="kinectdata" output="screen">
+    <node pkg="multimodal_dataset_creation" type="Kinect_node.py" name="kinectnode" output="screen">
     </node>
     <node pkg="multimodal_dataset_creation" type="Recorder_PC.py" 
 name="recordPC" output="screen">

@@ -49,9 +49,9 @@ class Fromsmart(object):
                 break
 
 def main():
-    rospy.init_node('smartdata', disable_signals=True) #create node
-    smartdata = Fromsmart()
-    smartdata.run()
+    rospy.init_node('smartnode', disable_signals=True) #create node
+    smartnode = Fromsmart()
+    smartnode.run()
 
 if __name__ == '__main__':
     main()

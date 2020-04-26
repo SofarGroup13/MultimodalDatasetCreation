@@ -48,16 +48,16 @@ class Kinect(object):
         r = rospy.Rate(self.update_rate)
         while True:
             try:
-                if self.flagstart and self.flag:
+                #if self.flagstart and self.flag:
                     self.pub.publish(self.data)
                     self.selfstart =False
             except KeyboardInterrupt:
                 break
 #create node
 def main():
-    rospy.init_node('kinectdata', disable_signals=True)
-    kinectdata = Kinect()
-    kinectdata.run()
+    rospy.init_node('kinectnode', disable_signals=True)
+    kinectnode = Kinect()
+    kinectnode.run()
 
 if __name__ == '__main__':
     main()

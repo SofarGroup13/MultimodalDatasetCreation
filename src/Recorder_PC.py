@@ -1,6 +1,6 @@
 #! /usr/bin/env python
 
-#This node is created for recording all data from Kinect in a Rosbag.
+#This node is created for recording all datas from Kinect in a Rosbag.
 
 
 import rosbag
@@ -25,14 +25,14 @@ class RecorderPC(object):
         self.init()
         while True:
             try:
-                if self.flag_start: #this bool is acrived when the topic has datas
-                    bag = rosbag.Bag('dati_PC.bag', 'w') #creation of rosbag
+                if self.flag_start: #this bool is acrived when the topic has data
+                    bag1 = rosbag.Bag('dati_PC.bag', 'w') #creation of rosbag
                     try:
                         co = PointCloud2()
 
-                        bag.write('/kinect_data', co) #write data in a rosbag 
+                        bag1.write('/kinect_data', co) #write data in a rosbag 
                     finally:
-                        bag.close()
+                        bag1.close()
             except KeyboardInterrupt:
                 break
 
