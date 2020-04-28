@@ -10,7 +10,7 @@ from std_msgs.msg import Float32MultiArray
 class RecorderMocap(object):
     def init(self):
 
-        self.data = Float32MultiArray  
+        self.data = Float32MultiArray()  
         self.flag_start = False
         rospy.Subscriber('/mocap_data', Float32MultiArray, self.callback) 
 
@@ -22,21 +22,21 @@ class RecorderMocap(object):
         self.init()
         while True:
             try:
-                if self.flag_start:
-                    bag = rosbag.Bag('mocap_data.bag', 'w')  #creation rosbag
+                #if self.flag_start:
+                    bag3 = rosbag.Bag('dati_mocap.bag', 'w')  #creation rosbag
                     try:
-                        pt = Imu()
-
-                        bag.write('/mocap_data', pt) #write imu data on rosbag
+                        pt = Float32MultiArray()
+                        
+                        bag3.write('/mocap_data', pt) #write mocap data on rosbag
                     finally:
-                        bag.close()    #close rosbag
+                        bag3.close()    #close rosbag
             except KeyboardInterrupt:
                 break
 
 def main():
-    rospy.init_node('Recordermocap', disable_signals= True)  #create node
+    rospy.init_node('Recorder_mocap', disable_signals= True)  #create node
     Recorder_mocap = RecorderMocap()
-    Recorder_mocap .run()
+    Recorder_mocap.run()
 
 if __name__=='__main__':
     main()

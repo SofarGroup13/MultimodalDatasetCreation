@@ -14,6 +14,7 @@ find_package(catkin REQUIRED COMPONENTS
   sensor_msgs
   geometry_msgs
   message_generation
+  rosbag
 )
 
 ## System dependencies are found with CMake's conventions
@@ -74,6 +75,7 @@ add_service_files(
    std_msgs
    geometry_msgs
    sensor_msgs
+  
  )
 
 ################################################
@@ -137,8 +139,11 @@ include_directories(
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
 # add_executable(${PROJECT_NAME}_node src/multimodal_dataset_creation_node.cpp)
-add_executable(mocap_fake.cpp src/mocap_fake.cpp)
+add_executable(mocap_fake.cpp src/mocap_fake.cpp) 
 target_link_libraries(mocap_fake.cpp ${catkin_LIBRARIES})
+
+
+
 
 ## Declare ROS messages and services
 
