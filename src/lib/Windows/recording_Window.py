@@ -87,7 +87,6 @@ class Ui_Recording_Window(object):
         self.Gesture_Image_Label.setLineWidth(3)
 
         self.Gesture_Image_Label.setText("")
-        self.Gesture_Image_Label.setPixmap(QtGui.QPixmap("pictures/stand_up.jpg"))
         self.Gesture_Image_Label.setScaledContents(True)
 
         self.Gesture_Image_Label.setAlignment(QtCore.Qt.AlignCenter)
@@ -225,7 +224,7 @@ class Ui_Recording_Window(object):
         self.Recording_Title.setText(_translate("Recording_Window", "Recording"))
         self.GoBack_Button.setText(_translate("Recording_Window", "Go back"))
         self.Countdown_Title_Label.setText(_translate("Recording_Window", "Countdown:"))
-        self.Countdown_Value_Label.setText(_translate("Recording_Window", "10"))
+        self.Countdown_Value_Label.setText(_translate("Recording_Window", ""))
         self.PlayStop_Button.setText(_translate("Recording_Window", "Play"))
         self.Time_Elapsed_Label.setText(_translate("Recording_Window", "Time elapsed is "))
         self.Current_Time_Label.setText(_translate("Recording_Window", "0:00"))
