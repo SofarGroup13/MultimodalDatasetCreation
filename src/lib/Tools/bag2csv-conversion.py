@@ -1,7 +1,8 @@
 #! /usr/bin/env python3.5
 import rosbag, os, rospkg, csv, sys
 from std_msgs.msg import Header, String
-from sensor_msgs.msg import PointCloud2, Imu, Point
+from sensor_msgs.msg import PointCloud2, Imu
+from geometry_msgs.msg import Point
 
 if (len(sys.argv) > 2): ##Verify the correctness of input arguments
     print(sys.argv)
