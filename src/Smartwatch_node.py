@@ -28,8 +28,10 @@ class Fromsmart(object):
 
     def callback1(self,data):
         self.data1 = data
-        self.flagstart = True
-
+        if self.data1.frame_id == "1":
+            self.flagstart = True
+        else:
+            self.flagstart = False
 
     def callbackImu(self,data):
         self.data = data

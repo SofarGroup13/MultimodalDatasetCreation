@@ -22,15 +22,15 @@ class Kinect(object):
         #publish on a topic the interested data
         self.pub = rospy.Publisher('/kinect_data', PointCloud2, queue_size= 10 )
         rospy.Subscriber('/kinect_status', Header, self.callback2)
-
         #rospy.Subscriber('/camera/depth/points', PointCloud2, self.callbackkin) #In case there is the link with the kinect and the use of OpenNi_Library
-
-
         rospy.Subscriber('/fake_data_PC', PointCloud2, self.callbackkin)
 
     def callback2(self, data1):
-        self.data1=data
-        self.flag = True
+        self.data1=data1
+        if self.data1.frame_id == "1":
+            self.flag = True
+        else:
+            self.flag = False
 
     def callbackkin(self, data):
         #for point in pc2.read_points(point_cloud):

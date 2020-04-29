@@ -14,7 +14,7 @@ Here is the dataset creation architecture: the "Experimenter_GUI" is the graphic
 the three sensor modules manage the interaction between the hardware and the software; the record module ... ; the "Conversion and Segmentation" module convert the "rosbag" into "csv" format and assigns labels to the data.
 
 <p align="center"> 
-<img src="https://github.com/FraPorta/Itslit/blob/master/Experimenter_UML.png?raw=true">
+<img src="https://github.com/FraPorta/Itslit/blob/master/ExperimenterDiagram.jpg?raw=true">
 </p>
 
 ## Contents of the repository

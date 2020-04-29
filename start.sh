@@ -1,0 +1,2 @@
+rosrun multimodal_dataset_creation fake_node_pc.py
+rosrun multimodal_dataset_creation fake_node_pc.py

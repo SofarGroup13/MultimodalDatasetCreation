@@ -12,7 +12,7 @@ class StartMsg_Publisher:
         self.seq = 0
         self.message = Header()
 
-        self.publisher = rospy.Publisher(self.topic, Header)
+        self.publisher = rospy.Publisher(self.topic, Header, queue_size=1)
 
     ## function publish
     #  @param self The object pointer
