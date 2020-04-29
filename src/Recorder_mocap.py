@@ -26,7 +26,7 @@ class RecorderMocap(object):
         self.init()
         while True:
             try:
-                #if self.flag_start:
+                if self.flag_start:
                     self.folder_path = max(glob.glob(os.path.join(self.filesDirectory, '*/')), key=os.path.getmtime)
                     bag3 = rosbag.Bag((os.path.join(self.folder_path,'mocap_bag.bag')), 'w')  #creation rosbag
                     try:
@@ -35,6 +35,7 @@ class RecorderMocap(object):
                         bag3.write('/mocap_data', pt)    #write mocap data from topic /mocap_data into a rosbag
                     finally:
                         bag3.close()                        #close rosbag
+                        self.flag_start = False
             except KeyboardInterrupt:
                 break
 
