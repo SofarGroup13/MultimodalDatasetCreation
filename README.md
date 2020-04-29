@@ -51,26 +51,31 @@ Please keep in mind, **do not** include in your repository the “entire” code
 
 ## Installation
 The first thing to do, after having cloned the repository in the Ros workspace, is to build the package and install in order to make the ‘msg’ and ‘srv’ files executable, using the following commands in the workspace:
+    
     ```
     catkin_make
     catkin_make install
     ```
+
 Then it is necessary to install a Ros related Python library (this passage may not be required if the pc on which the modules will be installed has already other Ros projects developed with Python 3). 
+    
     ```
 	sudo apt-update
 	sudo apt install python3-pip
     sudo apt-get install python3-yaml	
     sudo pip3 install rospkg catkin-pkg 
-     
     pip3 install --user pyqt5
 	sudo apt-get install python3-pyqt5
     ```
+
 To run the system:
+    
     ```
     roslaunch multimodal_dataset_creation fake_nodes.launch
     roslaunch multimodal_dataset_creation experimenter_GUI.launch
     ```
-# rqt_graph
+
+# Rqt_graph
 <p align="center"> 
 <img src="">
 </p>
