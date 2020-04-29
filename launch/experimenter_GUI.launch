@@ -18,16 +18,10 @@ name="recordIMU" output="screen">
     </node>
     <node pkg="multimodal_dataset_creation" type="Recorder_mocap.py" name="Recorder_mocap" output="screen">
     </node>
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
+
     <node pkg="multimodal_dataset_creation" type="mocap_fake.cpp" name="mocap_fake" output="screen">
     </node>
-=======
-  
->>>>>>> Stashed changes
-=======
-  
->>>>>>> Stashed changes
+
 
 
 
