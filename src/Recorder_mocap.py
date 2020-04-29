@@ -1,7 +1,7 @@
 #! /usr/bin/env python
 
 #This node is created for recording all datas from mocap Optitrack in a Rosbag.
-
+import os, glob
 import rosbag
 import rospy
 from std_msgs.msg import Float32MultiArray
@@ -9,6 +9,10 @@ from std_msgs.msg import Float32MultiArray
 
 class RecorderMocap(object):
     def init(self):
+
+        self.workingDirectory = os.path.dirname(os.path.abspath(__file__))
+        self.parentDirectory = os.path.dirname(self.workingDirectory)
+        self.filesDirectory = os.path.join(self.parentDirectory,"files")
 
         self.data = Float32MultiArray()  
         self.flag_start = False
@@ -23,7 +27,8 @@ class RecorderMocap(object):
         while True:
             try:
                 #if self.flag_start:
-                    bag3 = rosbag.Bag('mocap_bag.bag', 'w')  #creation rosbag
+                    self.folder_path = max(glob.glob(os.path.join(self.filesDirectory, '*/')), key=os.path.getmtime)
+                    bag3 = rosbag.Bag((os.path.join(self.folder_path,'mocap_bag.bag')), 'w')  #creation rosbag
                     try:
                         pt = Float32MultiArray()
                         
