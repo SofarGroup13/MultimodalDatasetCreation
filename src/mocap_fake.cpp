@@ -15,8 +15,8 @@ int main(int argc, char **argv)
     ros::init(argc, argv, "mocap_fake");   
 
     ros::NodeHandle  n;  
-    ros::Publisher markers_coordinates = n.advertise<std_msgs::Float32MultiArray>("/mocap_data",1);
-    
+
+     ros::Publisher markers_coordinates = n.advertise<std_msgs::Float32MultiArray>("fake_data_mocap",1);
 
      while(ros::ok()) { 
 
@@ -34,17 +34,4 @@ return 0;
 
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    
