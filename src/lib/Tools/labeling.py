@@ -1,7 +1,7 @@
 #! /usr/bin/env python2.7    
 import sys, csv, os
 import numpy as np
-import matplotlib.pyplot as plt
+
 
 if (len(sys.argv) == 2): ##Check the correctness of the input topics
     csvFolder = sys.argv[1]
@@ -184,5 +184,3 @@ if not(os.path.isfile(csvName2)):
 else:
     print("Warning the file already exist")
 
-
-    plt.show()
