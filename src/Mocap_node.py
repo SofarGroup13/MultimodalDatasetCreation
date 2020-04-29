@@ -43,7 +43,7 @@ class Mocap(object):
         while True:
             try:
                 if self.flagstart and self.flag:
-                    self.pub.publish(self.data4)
+                    self.pub3.publish(self.data4)
                     self.selfstart =False
             except KeyboardInterrupt:
                 break

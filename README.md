@@ -71,7 +71,7 @@ To run the system:
 
 # Rqt_graph
 <p align="center"> 
-<img src="">
+<img src="https://github.com/FraPorta/Itslit/blob/master/rqt.png?raw=true">
 </p>
 
 ### Modules
