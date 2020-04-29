@@ -9,8 +9,12 @@ project(multimodal_dataset_creation)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
   rospy
+  roscpp
   std_msgs
+  sensor_msgs
+  geometry_msgs
   message_generation
+  rosbag
 )
 
 ## System dependencies are found with CMake's conventions
@@ -47,10 +51,11 @@ find_package(catkin REQUIRED COMPONENTS
 ##   * add every package in MSG_DEP_SET to generate_messages(DEPENDENCIES ...)
 
 ## Generate messages in the 'msg' folder
-add_message_files(
-   FILES
-   IntList.msg
-)
+# add_message_files(
+#   FILES
+#   Message1.msg
+#   Message2.msg
+# )
 
 ## Generate services in the 'srv' folder
 add_service_files(
@@ -69,6 +74,9 @@ add_service_files(
  generate_messages(
    DEPENDENCIES
    std_msgs
+   geometry_msgs
+   sensor_msgs
+  
  )
 
 ################################################
@@ -103,7 +111,7 @@ add_service_files(
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES multimodal_dataset_creation
-#   CATKIN_DEPENDS rospy std_msgs
+  CATKIN_DEPENDS rospy std_msgs geometry_msgs roscpp message_runtime
    CATKIN_DEPENDS message_runtime
 #  DEPENDS system_lib
 )
@@ -133,6 +141,16 @@ include_directories(
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
 # add_executable(${PROJECT_NAME}_node src/multimodal_dataset_creation_node.cpp)
+
+
+
+
+
+
+
+
+## Declare ROS messages and services
+
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the

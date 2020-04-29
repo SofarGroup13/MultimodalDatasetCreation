@@ -1,6 +1,38 @@
 <launch>
+  <arg name="inertial_sub_topic"  default= "/G_Watch_R_5567/imu_data"/>
+
     <node pkg="multimodal_dataset_creation" type="GUI_node.py" name="experimenter_GUI" output="screen">
     </node>
     <node pkg="multimodal_dataset_creation" type="gestures_node.py" name="gesture_sequence_server" output="screen">
     </node>
+    <node pkg="multimodal_dataset_creation" type="Smartwatch_node.py" name="smartnode" output= "screen">
+      <remap from="/inertial" to = "$(arg inertial_sub_topic)"/>
+    </node>
+    <node pkg="multimodal_dataset_creation" type="Kinect_node.py" name="kinectnode" output="screen">
+    </node>
+    <node pkg="multimodal_dataset_creation" type="Recorder_PC.py" 
+name="recordPC" output="screen">
+    </node>
+    <node pkg="multimodal_dataset_creation" type="Recorder_IMU.py"
+name="recordIMU" output="screen">
+    </node>
+    <node pkg="multimodal_dataset_creation" type="Recorder_mocap.py" name="Recorder_mocap" output="screen">
+    </node>
+
+    <node pkg="multimodal_dataset_creation" type="mocap_fake.cpp" name="mocap_fake" output="screen">
+    </node>
+
+
+
+
+
+    <node pkg="multimodal_dataset_creation" type="fake_node_imu.py" name="fakeimudata" output="screen">
+    </node>
+
+
+    <node pkg="multimodal_dataset_creation" type="fake_node_pc.py" name="fake_node_pc" output="screen">
+    </node>
+    
+    
+
 </launch>
