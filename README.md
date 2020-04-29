@@ -30,24 +30,18 @@ This folder contains the launchfile that executes the whole program.
 This folder contains all the nodes that make up the main program: "GUI_node" initializes the GUI and deals with the logic behind the graphical elements, which makes the user navigate between windows, write personal informations, select which sensors to use, and so on; the "gestures_nodes" implements the server which manages the request for a random gesture sequence; the "fake_node_imu" creates fake simulated data from the Smartwatch; the "Smartwatch_node" manages data from Smartwatch sensor: it saves data when it is required by user; the "Recorder_IMU" saves data Imu into a Rosbag; the "fake_node_pc" create fake simulated data from the Kinect; the "kinect_node" manages data from Kinect sensor: it saves data when it is required by user; the "Recorder_PC" saves data PointCloud2 into a Rosbag;
 In addition to these 2 files, there's also the following folder.
 
+### Lib
+This folder contains 2 important sub-folders, "Tools" and "Windows".
 
-#### Lib
-This folder contains 2 important sub-folders.
-
-##### Tools
+### Tools
 This folder contains code which is needed in bigger programs: "gesture_sequence_client" implements the class to istantiate the client side of the service-client pattern; "startmsg_publisher" implements the class to create the publisher side of a publish-subscribe pattern.
 
-##### Windows
+### Windows
 This folder contains the code which encapsulates both the windows and their elements, which are istantiated in "GUI_node": here lies the code for the configuration window, the recording/communication with user window and the several tutorial windows.
 The code consists in classes created using "Qt5Designer" a program which lets you build up a graphical user interface by dragging components onto a window: we end up with a ".ui" file, which is then converted to python code.
 
 ### Srv
 This folder contains the simple ".srv" file that encodes the request-response structure of the service-client pattern.
-
-## Installation and System Testing 
-This section presents (in its sub-sections) how to install/run and test the modules. **Note that:** If all the modules have successfully completed their work and integrated everything together, then this section can present the overall **Installation and Testing** procedure for the the "whole" system, instead of having a sub-section dedicated for each module. 
-
-Please keep in mind, **do not** include in your repository the “entire” code of the external libraries that your module may use. Hence accordingly, **describe** to the new users how they can “install” the external libraries and then **describe** how they can “install” your module that uses those libraries. Afterwhich, **describe** how to run and test your module. Finally, show **(i)** the rqt_graph generated when the module is running, **(ii)** images or links to the videos showing the working of the module (in real or in simulation).
 
 ## Installation
 The first thing to do, after having cloned the repository in the Ros workspace, is to build the package and install in order to make the ‘msg’ and ‘srv’ files executable, using the following commands in the workspace:
@@ -90,8 +84,6 @@ To run the system:
 * "Recorder Imu" Module
 * "Recorder PC" Module
 * "Conversion and Segmentation" Module
-
-
 
 # What else should we add?
 	

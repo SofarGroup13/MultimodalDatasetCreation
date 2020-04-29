@@ -310,7 +310,7 @@ class MainWindow(QtWidgets.QMainWindow):
             self.sensorsInit()
 
     ## function sensorsInit
-    #  Function that creates the sensor files and publishes the correct start commands
+    #  Function that publishes the correct start commands
     #  @param self The object pointer
     def sensorsInit(self):
         ## Clear the countdown labels
@@ -319,39 +319,19 @@ class MainWindow(QtWidgets.QMainWindow):
 
         ## If all the sensor check boxes are unchecked use as default sensor the Kinect
         if not self.useKinect and not self.useSmartwatch and not self.useMOCAP:
-            ## Create the file to contain the kinect data
-            self.kinectFilepath = os.path.join(self.recordingDirectory, "Kinect_Data.txt")
-            self.kinectData = open(self.kinectFilepath, 'w')
-            self.kinectData.close()
-
-            ## Publish the start command for the kinect (check if "1" is ok)
+            ## Publish the start command for the kinect
             self.kinectPublisher.publish("1")
         else: 
-            ## Publish the start commmands onto the correct topics and create files accordingly
+            ## Publish the start commmands onto the correct topics 
             if self.useKinect:
-                ## Create the file to contain the kinect data
-                self.kinectFilepath = os.path.join(self.recordingDirectory, "Kinect_Data.txt")
-                self.kinectData = open(self.kinectFilepath, 'w')
-                self.kinectData.close()
-
                 ## Publish the start command for the kinect
                 self.kinectPublisher.publish("1")
 
             if self.useSmartwatch:
-                ## Create the file to contain the smartwatch data
-                self.smartwatchFilepath = os.path.join(self.recordingDirectory, "Smartwatch_Data.txt")
-                self.smartwatchData = open(self.smartwatchFilepath, 'w')
-                self.smartwatchData.close()
-
                 ## Publish the start command for the smartwatch
                 self.smartwatchPublisher.publish("1")
 
             if self.useMOCAP:
-                ## Create the file to contain the MOCAP data
-                self.mocapFilepath = os.path.join(self.recordingDirectory, "MOCAP_Data.txt")
-                self.mocapData = open(self.mocapFilepath, 'w')
-                self.mocapData.close()
-
                 ## Publish the start command for the MOCAP
                 self.mocapPublisher.publish("1")
         
@@ -443,8 +423,6 @@ class MainWindow(QtWidgets.QMainWindow):
             self.recording_Window.GoBack_Button.setEnabled(True)
             self.recording_Window.Time_Elapsed_ProgressBar.setProperty("value", 100)
             self.recording_Window.Current_Time_Label.setText(str(math.floor(self.totalTime / 60)) + ":" + str(self.totalTime % 60))
-
-            ## Notify that the recording has finished (how? maybe show an image with written "recording has finished")
 
     ## function updateImage
     #  Function that updates the image to be shown to the user
