@@ -11,7 +11,7 @@ if (len(sys.argv) > 2): ##Verify the correctness of input arguments
 else:
     bagFolder = sys.argv[1] 
 
-filesName = ['pointclod2', 'gestures', 'point', 'imu']
+filesName = ['pointcloud2', 'gestures', 'point', 'imu']
 
 for fileName in filesName: ##Access to rosbag
     bag = rosbag.Bag(bagFolder + "/" + fileName + ".bag")
@@ -20,7 +20,7 @@ for fileName in filesName: ##Access to rosbag
         with open(csvName, 'w+') as csvfile:
             filewriter = csv.writer(csvfile, delimiter = ',')
             firstIteration = True
-        for topic, msg, t in bag.read_messages(): ##Recovery of topic list from rosbag
+        	for topic, msg, t in bag.read_messages(): ##Recovery of topic list from rosbag
                     values = []
 if fileName == 'pointcloud2':   
                         if firstIteration:
@@ -34,7 +34,7 @@ if fileName == 'pointcloud2':
                         values.append(int(msg.width))
 if fileName == 'imu':   
                         if firstIteration:
-                            header = ['ros_seconds', 'ros_nanoseconds', 'android_millis', 'angular_vel_x', 'angular_vel_y', 'angular_vel_z', 'linear_acc_x', 'linear_acc_y', 'linear_acc_z']
+                            header = ['ros_seconds', 'ros_nanoseconds', 'android_millis', 'angular_vel_x', 'angular_vel_y', 'angular_vel_z', 					       'linear_acc_x', 'linear_acc_y', 'linear_acc_z']
                             filewriter.writerow(header)       
                             firstIteration = False      
                         values.append(msg.header.stamp.secs)
@@ -65,6 +65,6 @@ elif fileName == 'gestures':
                         values.append(msg.stamp.secs)
                         values.append(msg.stamp.nsecs)
                         values.append(msg.frame_id)
-                    filewriter.writerow(values)
+filewriter.writerow(values)
            
-    bag.close()
+bag.close()
