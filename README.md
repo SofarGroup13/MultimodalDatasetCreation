@@ -44,23 +44,47 @@ The code consists in classes created using "Qt5Designer" a program which lets yo
 ### Srv
 This folder contains the simple ".srv" file that encodes the request-response structure of the service-client pattern.
 
-## Download instructions (Keep or not?)
-
-## Installation and System Testing (Keep or not?)
+## Installation and System Testing 
 This section presents (in its sub-sections) how to install/run and test the modules. **Note that:** If all the modules have successfully completed their work and integrated everything together, then this section can present the overall **Installation and Testing** procedure for the the "whole" system, instead of having a sub-section dedicated for each module. 
 
 Please keep in mind, **do not** include in your repository the “entire” code of the external libraries that your module may use. Hence accordingly, **describe** to the new users how they can “install” the external libraries and then **describe** how they can “install” your module that uses those libraries. Afterwhich, **describe** how to run and test your module. Finally, show **(i)** the rqt_graph generated when the module is running, **(ii)** images or links to the videos showing the working of the module (in real or in simulation).
 
-### Module < name of the module >
-"GUI" Module
-"Gesture Sequence Generator" Module
-"Fake Imu" Module
-"Smartwatch" Module
-"Fake PointCloud2" Module
-"Kinect" Module
-"Recorder Imu" Module
-"Recorder PC" Module
-"Conversion and Segmentation" Module
+## Installation
+The first thing to do, after having cloned the repository in the Ros workspace, is to build the package and install in order to make the ‘msg’ and ‘srv’ files executable, using the following commands in the workspace:
+    ```
+    catkin_make
+    catkin_make install
+    ```
+Then it is necessary to install a Ros related Python library (this passage may not be required if the pc on which the modules will be installed has already other Ros projects developed with Python 3). 
+    ```
+	sudo apt-update
+	sudo apt install python3-pip
+    sudo apt-get install python3-yaml	
+    sudo pip3 install rospkg catkin-pkg 
+     
+    pip3 install --user pyqt5
+	sudo apt-get install python3-pyqt5
+    ```
+To run the system:
+    ```
+    roslaunch multimodal_dataset_creation fake_nodes.launch
+    roslaunch multimodal_dataset_creation experimenter_GUI.launch
+    ```
+# rqt_graph
+<p align="center"> 
+<img src="">
+</p>
+
+### Modules
+* "Experimenter_GUI" Module
+* "Gesture Sequence Generator" Module
+* "Fake Imu" Module
+* "Smartwatch" Module
+* "Fake PointCloud2" Module
+* "Kinect" Module
+* "Recorder Imu" Module
+* "Recorder PC" Module
+* "Conversion and Segmentation" Module
 
 
 

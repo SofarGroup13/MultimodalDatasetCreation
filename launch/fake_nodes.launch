@@ -1,0 +1,6 @@
+<launch>
+    <node pkg="multimodal_dataset_creation" type="fake_node_imu.py" name="fake_node_imu" output="log">
+    </node>
+    <node pkg="multimodal_dataset_creation" type="fake_node_pc.py" name="fake_node_pc" output="log">
+    </node>
+</launch>
