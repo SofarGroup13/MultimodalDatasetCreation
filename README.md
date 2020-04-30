@@ -31,9 +31,6 @@ In this section we will explain the repository's content.
 This folder contains 3 packages: "mocap_optitrack", "kinect_aux-indigo", "openni_camera-indigo-devel".
 "mocap_optitrack" is a package developed for ROS Indigo. It is cloned by the repository https://github.com/ACarfi/SOFAR and it publishes markers's position on the topic '/markers_coo'. It should be launched with the command "mocap.launch" before the experiment starts to collect real mocap data.
 
-### Documentation
-This folder contains the doxygen documentation in "html" and "laTex" format
-
 ### Files
 This is the folder in which the files created with the application will be stored.
 
@@ -44,7 +41,6 @@ This folder contains the several images that need to be displayed in the GUI in 
 This folder contains two launchfiles: one executes the whole application and the other one executes the nodes which mimic the hardware's functioning.
 
 ### Msg
-Tis folder contains the ".msg" file needed for the gesture sequence structure that is saved in a rosbag 
 
 ### Src
 This folder contains all the nodes that make up the main program: "GUI_node" initializes the GUI and deals with the logic behind the graphical elements, which makes the user navigate between windows, write personal informations, select which sensors to use, and so on; the "gestures_nodes" implements the server which manages the request for a random gesture sequence; the "fake_node_imu" creates fake simulated data from the Smartwatch; the "Smartwatch_node" manages data from Smartwatch sensor: it saves data when it is required by user; the "Recorder_IMU" saves data Imu into a Rosbag; the "fake_node_pc" create fake simulated data from the Kinect; the "kinect_node" manages data from Kinect sensor: it saves data when it is required by user; the "Recorder_PC" saves data PointCloud2 into a Rosbag; the "mocap_fake" creates fake simulated data from the Mocap; the "Mocap_node" manages data from Mocap sensor: it saves data when it is required by user; the "Recorder_mocap" saves Mocap data into a Rosbag. 
