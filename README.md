@@ -28,6 +28,8 @@ from the topics published by the Sensor Modules and record them into a Rosbags; 
 In this section we will explain the repository's content.
 
 ### Dependence
+This folder contains 3 packages: "mocap_optitrack", "kinect_aux-indigo", "openni_camera-indigo-devel".
+"mocap_optitrack" is a package developed for ROS Indigo. It is cloned by the repository https://github.com/ACarfi/SOFAR and it publishes markers's position on the topic '/markers_coo'. It should be launched with the command "mocap.launch" before the experiment starts to collect real mocap data.
 
 ### Documentation
 This folder contains the doxygen documentation in "html" and "laTex" format
@@ -60,6 +62,7 @@ The code consists in classes created using "Qt5Designer" a program which lets yo
 
 ### Srv
 This folder contains the simple ".srv" file that encodes the request-response structure of the service-client pattern.
+
 
 ## Installation
 The first thing to do, after having cloned the repository in the Ros workspace, is to build the package and install in order to make the ‘msg’ and ‘srv’ files executable, using the following commands in the workspace:
@@ -109,4 +112,3 @@ To run the system:
 ## Report
 
 The report was added to the Google Drive link shared on Slack.
-[Report]()
