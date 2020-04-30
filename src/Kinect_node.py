@@ -1,5 +1,5 @@
 #!/usr/bin/env python3.5
-
+## @package Kinect_node.py
 #This node is the node capable of taking specific data (sensor_msgs/PointCloud2) from Kinect (or from the fake_node_Pc) and publish a topic with these.
 
 import rospy
@@ -9,7 +9,7 @@ from std_msgs.msg import Header
 import sensor_msgs.point_cloud2 as pc2
 
 
-
+##class Kinect
 class Kinect(object):
     #init
     def init(self):
@@ -17,21 +17,24 @@ class Kinect(object):
         self.data1 = Header() #type of data from Gui_Node
         self.flag = False #Flag to active the publishing on topic for record
         self.flagstart = False
+        ##defining frequency 
         self.update_rate = 30   #Frequency (Hz) (640x480 pixels)@depends on the used FromKinect
         self.data = PointCloud2() #type of data
-        #publish on a topic the interested data
+        ##creation of a topic the interested data
         self.pub = rospy.Publisher('/kinect_data', PointCloud2, queue_size= 10 )
+        ##subscriber to 'kinect_status'
         rospy.Subscriber('/kinect_status', Header, self.callback2)
+        ##subscriber to 'fake_data_PC'
         #rospy.Subscriber('/camera/depth/points', PointCloud2, self.callbackkin) #In case there is the link with the kinect and the use of OpenNi_Library
         rospy.Subscriber('/fake_data_PC', PointCloud2, self.callbackkin)
-
+##function callback for message from Gui
     def callback2(self, data1):
         self.data1=data1
         if self.data1.frame_id == "1":
             self.flag = True
         else:
             self.flag = False
-
+##function callback for message from fake node
     def callbackkin(self, data):
         #for point in pc2.read_points(point_cloud):
             #rospy.logwarn("x, y, z: %.1f, %.1f, %.1f" % (point[0], point[1], point[2]))
@@ -40,7 +43,7 @@ class Kinect(object):
         self.data = data
         self.flagstart = True
 
-    #starting
+    ##starting
     def run(self):
         self.init()
 
@@ -49,11 +52,12 @@ class Kinect(object):
         while True:
             try:
                 if self.flagstart and self.flag:
+                    ##publish data from 'fake_data_pc' to 'kinect_data'
                     self.pub.publish(self.data)
                     self.selfstart =False
             except KeyboardInterrupt:
                 break
-#create node
+##create node
 def main():
     rospy.init_node('kinectnode', disable_signals=True)
     kinectnode = Kinect()
