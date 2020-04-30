@@ -3,4 +3,6 @@
     </node>
     <node pkg="multimodal_dataset_creation" type="fake_node_pc.py" name="fake_node_pc" output="log">
     </node>
+     <node pkg="multimodal_dataset_creation" type="mocap_fake.cpp" name="fake_node_mocap" output="log">
+    </node>
 </launch>
