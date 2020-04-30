@@ -434,11 +434,11 @@ class MainWindow(QtWidgets.QMainWindow):
 
         ## Obtain the paths of the images
         self.picturesDirectory = os.path.join(self.parentDirectory, "gui_content", "pictures")
-        self.drinkingDirectory = os.path.join(self.picturesDirectory, "Drinking.jpg")
-        self.pouringDirectory = os.path.join(self.picturesDirectory, "Pouring.jpg")
+        self.drinkingDirectory = os.path.join(self.picturesDirectory, "Drinking.png")
+        self.pouringDirectory = os.path.join(self.picturesDirectory, "Pouring.png")
         self.sittingDownDirectory = os.path.join(self.picturesDirectory, "Sitting_Down.jpg")
         self.standingUpDirectory = os.path.join(self.picturesDirectory, "Standing_Up.jpg")
-        self.walkingDirectory = os.path.join(self.picturesDirectory, "Walking.jpg")
+        self.walkingDirectory = os.path.join(self.picturesDirectory, "Walking.png")
 
         ## Show the corresponding image
         if self.currentGesture == 0:

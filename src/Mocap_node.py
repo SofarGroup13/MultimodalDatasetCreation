@@ -1,9 +1,9 @@
-#!/usr/bin/env python3.5
+##!/usr/bin/env python3.5
 
-#This node is the node capable of taking specific data (sensor_msgs/Float32MultiArray) from Mocap and publish a topic with these.
+##This node is the node capable of taking specific data (std_msgs.msg/Float32MultiArray) from Mocap and publish a topic with these.
 
 import rospy
-#introduction of type of data from mocap we are interested
+##introduction of type of data from mocap we are interested
 from std_msgs.msg import Float32MultiArray
 from std_msgs.msg import Header
 
@@ -12,15 +12,16 @@ class Mocap(object):
 
     def init(self):
 
-        self.data3 = Header()               #type of data from Gui_Node
-        self.flag = False                   #Flag to active the publishing on topic for record
+        self.data3 = Header()                       ##type of data from Gui_Node
+        self.flag = False                           ##Flag to active the publishing on topic for record
         self.flagstart = False
-        self.update_rate1 = 30               #Frequency (Hz)
-        self.data4 = Float32MultiArray()           #type of data
-        #publish on a topic the interested data
+        self.update_rate1 = 30                      ##Frequency (Hz), depends on the used Mocap
+        self.data4 = Float32MultiArray()            #type of Mocap data
+        ##publish on a topic the interested data ('/mocap_data')
         self.pub3 = rospy.Publisher('/mocap_data',Float32MultiArray, queue_size= 10 )
+        ##subscribe to the topic ('/mocap_status')
         rospy.Subscriber('/mocap_status', Header, self.callback3)
-        #rospy.Subscriber(mocap_fake_node) 
+        ##subscribe to the topic ('/fake_data_mocap') 
         rospy.Subscriber('/fake_data_mocap', Float32MultiArray, self.callback4)
 
     def callback3(self, data3):
@@ -34,7 +35,7 @@ class Mocap(object):
         self.data4 = data4
         self.flagstart = True
    
-    #starting
+    ##starting
     def run(self):
         self.init()
 
@@ -43,12 +44,12 @@ class Mocap(object):
         while True:
             try:
                 if self.flagstart and self.flag:
-                    self.pub.publish(self.data4)
+                    self.pub3.publish(self.data4)       
                     self.selfstart =False
             except KeyboardInterrupt:
                 break
 
-#create node
+##create node
 def main():
     rospy.init_node('Mocap_node', disable_signals=True)
     Mocap_node = Mocap()
