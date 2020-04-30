@@ -28,8 +28,7 @@ from the topics published by the Sensor Modules and record them into a Rosbags; 
 In this section we will explain the repository's content.
 
 ### Dependence
-This folder contains 3 packages: "mocap_optitrack", "kinect_aux-indigo", "openni_camera-indigo-devel".
-"mocap_optitrack" is a package developed for ROS Indigo. It is cloned by the repository https://github.com/ACarfi/SOFAR and it publishes markers's position on the topic '/markers_coo'. It should be launched with the command "mocap.launch" before the experiment starts to collect real mocap data.
+This folder contains the 3 packages to achieve data from real Kinect sensor and real Mocap sensor.. 
 
 ### Files
 This is the folder in which the files created with the application will be stored.
