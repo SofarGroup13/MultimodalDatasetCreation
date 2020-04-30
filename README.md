@@ -6,7 +6,7 @@ The dataset will be built for 5 types of gesture, namely pouring, drinking, sitt
 * Francesco Porta: francy857@gmail.com
 * Davide Piccinini: piccio98dp@gmail.com
 * Sara Romano: sara.romano.15@gmail.com
-* Aurora Bertino LastName: au1698@icloud.com
+* Aurora Bertino: au1698@icloud.com
 
 ## Architecture of the System
 Here is the dataset creation architecture: the "Experimenter_GUI" is the graphical user interface used to actively interact with the underlying program; the "Gesture Sequence Generator" module is the implementation of a service-client pattern's server; 
@@ -28,7 +28,7 @@ This folder contains the launchfile that executes the whole program.
 
 ### Src
 This folder contains all the nodes that make up the main program: "GUI_node" initializes the GUI and deals with the logic behind the graphical elements, which makes the user navigate between windows, write personal informations, select which sensors to use, and so on; the "gestures_nodes" implements the server which manages the request for a random gesture sequence; the "fake_node_imu" creates fake simulated data from the Smartwatch; the "Smartwatch_node" manages data from Smartwatch sensor: it saves data when it is required by user; the "Recorder_IMU" saves data Imu into a Rosbag; the "fake_node_pc" create fake simulated data from the Kinect; the "kinect_node" manages data from Kinect sensor: it saves data when it is required by user; the "Recorder_PC" saves data PointCloud2 into a Rosbag; the "mocap_fake" creates fake simulated data from the Mocap;
-the "Mocap_node" magaes datat from Mocap sensor: it saves data when it is required by user; the "Recorder_mocap" saves Mocap data into a Rosbag. 
+the "Mocap_node" manages data from Mocap sensor: it saves data when it is required by user; the "Recorder_mocap" saves Mocap data into a Rosbag. 
 In addition to these 2 files, there's also the following folder.
 
 ### Lib
