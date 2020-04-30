@@ -14,7 +14,7 @@ class RecorderMocap(object):
         self.parentDirectory = os.path.dirname(self.workingDirectory)
         self.filesDirectory = os.path.join(self.parentDirectory,"files")
 
-        self.data = Float32MultiArray()      ##define thhe type of message Float32MultiArray()
+        self.data = Float32MultiArray()      ##define the type of message Float32MultiArray()
         self.flag_start = False               
         rospy.Subscriber('/mocap_data', Float32MultiArray, self.callback) ##subscribe to the topic ('/mocap_data')
 ## callback function, topic_('/mocap_data')
@@ -26,7 +26,7 @@ class RecorderMocap(object):
         self.init()
         while True:
             try:
-                if self.flag_start:   ##if the node receives data in the topic ('/mocap_data')
+                if self.flag_start:   ##if the node receives data on the topic ('/mocap_data')
                     self.folder_path = max(glob.glob(os.path.join(self.filesDirectory, '*/')), key=os.path.getmtime)
                     bag3 = rosbag.Bag((os.path.join(self.folder_path,'mocap_bag.bag')), 'w')  ##create rosbag 'mocap_bag.bag'.
                     try:

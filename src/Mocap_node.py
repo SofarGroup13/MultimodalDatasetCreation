@@ -3,7 +3,7 @@
 ##This node is the node capable of taking specific data (std_msgs.msg/Float32MultiArray) from Mocap and publish a topic with these.
 
 import rospy
-##introduction of type of data from mocap we are interested
+##introduction of type of data from mocap in which we are interested
 from std_msgs.msg import Float32MultiArray
 from std_msgs.msg import Header
 
@@ -13,7 +13,7 @@ class Mocap(object):
     def init(self):
 
         self.data3 = Header()                      
-        self.flag = False                           ##Flag to active the publishing on topic for record
+        self.flag = False                           ##Flag to active the publisher on topic for record
         self.flagstart = False
         self.update_rate1 = 30                      ##Frequency (Hz), depends on the used Mocap
         self.data4 = Float32MultiArray()            
