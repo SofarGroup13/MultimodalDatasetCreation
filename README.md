@@ -28,6 +28,7 @@ from the topics published by the Sensor Modules and record them into a Rosbags; 
 In this section we will explain the repository's content.
 
 ### Dependence
+This folder contains the 3 packages to achieve data from real Kinect sensor and real Mocap sensor.. 
 
 ### Documentation
 This folder contains the doxygen documentation in "html" and "laTex" format
