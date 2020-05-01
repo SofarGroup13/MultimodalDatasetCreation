@@ -21,7 +21,7 @@ for fileName in filesName:
         with open(csvName, 'w+') as csvfile:
             filewriter = csv.writer(csvfile, delimiter = ',')
             firstIteration = True
-        	for topic, msg, t in bag.read_messages(): ## Recovery of topic list from rosbag
+            for topic, msg, t in bag.read_messages(): ## Recovery of topic list from rosbag
 
                     values = []
 if fileName == 'dati_PC':   
@@ -66,6 +66,6 @@ elif fileName == 'gesture_sequence':
                         values.append(msg.stamp.secs)
                         values.append(msg.stamp.nsecs)
                         values.append(msg.frame_id)
-filewriter.writerow(values)
+			filewriter.writerow(values)
            
 bag.close()
