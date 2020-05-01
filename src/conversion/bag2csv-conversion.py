@@ -11,7 +11,7 @@ else:
      print("invalid number of argument")
      sys.exit(1) 
 
-filesName = ['dati_PC', 'gesture_sequence', 'point', 'dati_IMU']
+filesName = ['dati_PC', 'gesture_sequence', 'mocap_bag', 'dati_IMU']
 
 ## Access to rosbag
 for fileName in filesName: 
@@ -48,7 +48,7 @@ if fileName == 'dati_IMU':
                         values.append(msg.linear_acceleration.x)
                         values.append(msg.linear_acceleration.y)
                         values.append(msg.linear_acceleration.z)
-if fileName == 'point':   
+if fileName == 'mocap_bag':   
                         if firstIteration:
                             header = ['ros_seconds', 'ros_nanoseconds', 'data_offset']
                             filewriter.writerow(header)       
