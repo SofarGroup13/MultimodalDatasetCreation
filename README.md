@@ -7,11 +7,18 @@ The dataset will be built for 5 types of gesture, namely pouring, drinking, sitt
 * Davide Piccinini: piccio98dp@gmail.com
 * Sara Romano: sara.romano.15@gmail.com
 * Aurora Bertino: au1698@icloud.com
+* Silvana Andrea Civiletto:
 
 ## Architecture of the System
-Here is the dataset creation architecture: the "Experimenter_GUI" is the graphical user interface used to actively interact with the underlying program; the "Gesture Sequence Generator" module is the implementation of a service-client pattern's server; 
-(COMPLETE THE FOLLOWING PART)
-the three sensor modules manage the interaction between the hardware and the software; the record modules create a rosbags containing all data from the sensors recorded when they are required by user; the "Conversion and Segmentation" module convert the "rosbag" into "csv" format and assigns labels to the data.
+The “Gesture Sequence Generator” module is the implementation of the server of a service-client
+pattern; the “Experimenter GUI” represents all the graphical part of the architecture (divided into “Configuration UI”, which contains the management of the recording’s configuration, and
+“Communication with User UI”, where the user can control the recording and where images and
+time elapsed are displayed); the three “Sensor Modules” collect data from the sensors (MOCAP,
+Smartwatch and Kinect) and when they receive the signals from the Experimenter_GUI, they
+publish datas in a topics (one for each type of message); the three “Record Modules” read data
+from the topics published by the Sensor Modules and record them into a Rosbags; the
+“Conversion and Segmentation” module is commissioned to convert the data from “rosbag” to
+“csv” format, to assign certain labels to it and to segment them.
 
 <p align="center"> 
 <img src="https://github.com/FraPorta/Itslit/blob/master/ExperimenterDiagram.jpg?raw=true">
@@ -20,15 +27,21 @@ the three sensor modules manage the interaction between the hardware and the sof
 ## Contents of the repository
 In this section we will explain the repository's content.
 
+### Dependence
+
+### Files
+This is the folder in which the files created with the application will be stored.
+
 ### Pictures
 This folder contains the several images that need to be displayed in the GUI in order to concisely communicate to the user what gesture he/she has to perform at a given time.
 
 ### Launch
-This folder contains the launchfile that executes the whole program.
+This folder contains two launchfiles: one executes the whole application and the other one executes the nodes which mimic the hardware's functioning.
+
+### Msg
 
 ### Src
-This folder contains all the nodes that make up the main program: "GUI_node" initializes the GUI and deals with the logic behind the graphical elements, which makes the user navigate between windows, write personal informations, select which sensors to use, and so on; the "gestures_nodes" implements the server which manages the request for a random gesture sequence; the "fake_node_imu" creates fake simulated data from the Smartwatch; the "Smartwatch_node" manages data from Smartwatch sensor: it saves data when it is required by user; the "Recorder_IMU" saves data Imu into a Rosbag; the "fake_node_pc" create fake simulated data from the Kinect; the "kinect_node" manages data from Kinect sensor: it saves data when it is required by user; the "Recorder_PC" saves data PointCloud2 into a Rosbag; the "mocap_fake" creates fake simulated data from the Mocap;
-the "Mocap_node" manages data from Mocap sensor: it saves data when it is required by user; the "Recorder_mocap" saves Mocap data into a Rosbag. 
+This folder contains all the nodes that make up the main program: "GUI_node" initializes the GUI and deals with the logic behind the graphical elements, which makes the user navigate between windows, write personal informations, select which sensors to use, and so on; the "gestures_nodes" implements the server which manages the request for a random gesture sequence; the "fake_node_imu" creates fake simulated data from the Smartwatch; the "Smartwatch_node" manages data from Smartwatch sensor: it saves data when it is required by user; the "Recorder_IMU" saves data Imu into a Rosbag; the "fake_node_pc" create fake simulated data from the Kinect; the "kinect_node" manages data from Kinect sensor: it saves data when it is required by user; the "Recorder_PC" saves data PointCloud2 into a Rosbag; the "mocap_fake" creates fake simulated data from the Mocap; the "Mocap_node" manages data from Mocap sensor: it saves data when it is required by user; the "Recorder_mocap" saves Mocap data into a Rosbag. 
 In addition to these 2 files, there's also the following folder.
 
 ### Lib
@@ -88,53 +101,7 @@ To run the system:
 * "mocap fake" Module
 * "Mocap node" Module
 * "Conversion and Segmentation" Module
-
-# What else should we add?
 	
-## Report (To be added)
+## Report
 
-This is the link to the report: [Project 13 report]()
-
-
-
-
-
-# Useful GitHub readme syntax
-
-## To make bullet points
-
-* Do this
-	* Do this
-
-## To make hyper-link
-
-For example, making a link to [ROS tutorials](http://wiki.ros.org/ROS/Tutorials)
-
-## To show, how to execute some commands in the terminal
-
-    ```
-    sudo apt install ros-kinetic-opencv3 #(should be already installed with previous point)
-    sudo apt install ros-kinetic-opencv-apps
-    ```
-
-## To exphasize about a particular command
-
-For example: Please do a ```catkin_make```, once you have modified your code. 
-
-## To add image(s) or video(s)
-
-* To embbed an image
-
-<p align="center"> 
-<img src="https://github.com/yushakareem/test-delete/blob/master/light-bulb-2-256.gif">
-</p>
-
-* To link a [video](https://youtu.be/-yOZEiHLuVU)
-
-## References
-
-[Concept guide.](https://guides.github.com/features/wikis/)
-
-[Syntax guide.](https://help.github.com/en/articles/basic-writing-and-formatting-syntax)
-
-[Link to the repository that has this readme.](https://github.com/EmaroLab/GitHub_Readme_Template)
+The report was added to the Google Drive link shared on Slack.
