@@ -7,7 +7,7 @@ The dataset will be built for 5 types of gesture, namely pouring, drinking, sitt
 * Davide Piccinini: piccio98dp@gmail.com
 * Sara Romano: sara.romano.15@gmail.com
 * Aurora Bertino: au1698@icloud.com
-* Silvana Andrea Civiletto:
+* Silvana Andrea Civiletto: silvanaandrea.civiletto@gmail.com
 
 ## Architecture of the System
 The “Gesture Sequence Generator” module is the implementation of the server of a service-client
@@ -44,6 +44,9 @@ This folder contains two launchfiles: one executes the whole application and the
 ### Src
 This folder contains all the nodes that make up the main program: "GUI_node" initializes the GUI and deals with the logic behind the graphical elements, which makes the user navigate between windows, write personal informations, select which sensors to use, and so on; the "gestures_nodes" implements the server which manages the request for a random gesture sequence; the "fake_node_imu" creates fake simulated data from the Smartwatch; the "Smartwatch_node" manages data from Smartwatch sensor: it saves data when it is required by user; the "Recorder_IMU" saves data Imu into a Rosbag; the "fake_node_pc" create fake simulated data from the Kinect; the "kinect_node" manages data from Kinect sensor: it saves data when it is required by user; the "Recorder_PC" saves data PointCloud2 into a Rosbag; the "mocap_fake" creates fake simulated data from the Mocap; the "Mocap_node" manages data from Mocap sensor: it saves data when it is required by user; the "Recorder_mocap" saves Mocap data into a Rosbag. 
 In addition to these 2 files, there's also the following folder.
+
+### Conversion
+This folder contains the "bag2csv-conversion",that takes Imu data, PointCloud2 data and Mocap data from Rosbag and converts them into csv files. There is also the "labeling",that takes csv files, label and segments them.
 
 ### Lib
 This folder contains 2 important sub-folders, "Tools" and "Windows".
@@ -83,7 +86,16 @@ To run the system:
     ```
     roslaunch multimodal_dataset_creation fake_nodes.launch
     roslaunch multimodal_dataset_creation experimenter_GUI.launch
+    
     ```
+To run "bag2csv-conversion" and "labeling" is necessary to locate the folder where Rosbags are saved and then run the system:
+
+    ```
+    python bag2csv-conversion.py "bagFolder"
+    python labeling.py "bagFolder"
+    
+    ```
+
 
 # Rqt_graph
 <p align="center"> 
