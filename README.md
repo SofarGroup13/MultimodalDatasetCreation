@@ -123,3 +123,5 @@ To run "bag2csv-conversion" and "labeling" is necessary to locate the folder whe
 ## Report
 
 The report was added to the Google Drive link shared on Slack.
+
+[Report](https://drive.google.com/file/d/1XSNjg128aYPiz81XUICh7qGQA5AVhxK2/view?usp=sharing)
