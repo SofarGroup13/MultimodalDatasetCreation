@@ -119,6 +119,11 @@ To run "bag2csv-conversion" and "labeling" is necessary to locate the folder whe
 * "mocap fake" Module
 * "Mocap node" Module
 * "Conversion and Segmentation" Module
+
+## Video Tutorial
+A video showing how our architecture works in real time can be found at the following link.
+
+[Video](https://web.microsoftstream.com/video/c12f3b1b-f489-4c3b-a76c-6dc4bbb9c393)
 	
 ## Report
 
