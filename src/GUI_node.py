@@ -334,9 +334,7 @@ class MainWindow(QtWidgets.QMainWindow):
             if self.useMOCAP:
                 ## Publish the start command for the MOCAP
                 self.mocapPublisher.publish("1")
-        
-        ## Store the gesture sequence in a rosbag for the segmentation
-        self.gesture_bag = Gesture_Bag(self.completeGestureSequence, self.recordingDirectory)
+
 
         ## Enable the Stop button and connect to it the stopRecording function
         self.recording_Window.PlayStop_Button.disconnect()
@@ -384,6 +382,10 @@ class MainWindow(QtWidgets.QMainWindow):
         ## Show the image of the first gesture to be performed
         self.updateImage(0)
 
+        ## Add timestamp to the first gesture
+        self.bagGestureSequence = []
+        self.bagGestureSequence.append([self.completeGestureSequence[0],rospy.Time.now()])
+        
         ## Start the timer to expire every 1 second
         self.feedbackTimer.start(1000)
 
@@ -407,11 +409,18 @@ class MainWindow(QtWidgets.QMainWindow):
             else:
                 self.recording_Window.Current_Time_Label.setText(str(self.currentMinutes) + ":" + str(self.currentSeconds))
 
-            ## If a multiple of 30 seconds has passed, update the image shown
+            ## If a multiple of 30 seconds has passed, update the image shown and add timestamp to the correspondent gesture
             if (self.currentTime % 30) == 0:
                 self.updateImage(int(self.currentTime / 30))
+                self.bagGestureSequence.append([self.completeGestureSequence[int(self.currentTime / 30)],rospy.Time.now()])
         else:
             self.feedbackTimer.stop()
+
+            self.ciao = self.bagGestureSequence[0]
+            print(self.ciao[1].secs)
+
+            ## Store the gesture sequence in a rosbag for the segmentation
+            self.gesture_bag = Gesture_Bag(self.bagGestureSequence, self.recordingDirectory)
 
             ## Stop the sensors from sending other data
             self.kinectPublisher.publish("0")

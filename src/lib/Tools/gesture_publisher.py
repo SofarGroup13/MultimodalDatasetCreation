@@ -16,7 +16,9 @@ class Gesture_Bag:
         self.bag = rosbag.Bag((os.path.join(self.folder,'gesture_sequence.bag')),'w')
         try:
             self.list = IntList()
-            self.list.data = sequence; 
+            self.list.data = [i[0] for i in sequence]
+            self.list.t = [i[1] for i in sequence]
+
             self.bag.write('gesture_sequence', self.list)
         finally:
             self.bag.close()
