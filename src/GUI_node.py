@@ -416,9 +416,6 @@ class MainWindow(QtWidgets.QMainWindow):
         else:
             self.feedbackTimer.stop()
 
-            self.ciao = self.bagGestureSequence[0]
-            print(self.ciao[1].secs)
-
             ## Store the gesture sequence in a rosbag for the segmentation
             self.gesture_bag = Gesture_Bag(self.bagGestureSequence, self.recordingDirectory)
 
