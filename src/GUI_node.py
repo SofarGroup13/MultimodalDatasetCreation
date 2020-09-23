@@ -383,8 +383,9 @@ class MainWindow(QtWidgets.QMainWindow):
         self.updateImage(0)
 
         ## Add timestamp to the first gesture
-        self.bagGestureSequence = []
-        self.bagGestureSequence.append([self.completeGestureSequence[0],rospy.Time.now()])
+        self.bagGestureTuple = [self.completeGestureSequence[0],rospy.Time.now()]
+        ## Store the first gesture in a rosbag for the segmentation
+        self.gesture_bag = Gesture_Bag(self.bagGestureTuple, self.recordingDirectory)
         
         ## Start the timer to expire every 1 second
         self.feedbackTimer.start(1000)
@@ -412,12 +413,13 @@ class MainWindow(QtWidgets.QMainWindow):
             ## If a multiple of 30 seconds has passed, update the image shown and add timestamp to the correspondent gesture
             if (self.currentTime % 30) == 0:
                 self.updateImage(int(self.currentTime / 30))
-                self.bagGestureSequence.append([self.completeGestureSequence[int(self.currentTime / 30)],rospy.Time.now()])
+                self.bagGestureTuple = [self.completeGestureSequence[int(self.currentTime / 30)],rospy.Time.now()]
+                self.gesture_bag.publish(self.bagGestureTuple)
         else:
             self.feedbackTimer.stop()
 
-            ## Store the gesture sequence in a rosbag for the segmentation
-            self.gesture_bag = Gesture_Bag(self.bagGestureSequence, self.recordingDirectory)
+            # Close the rosbag used to store the gesture sequence
+            self.gesture_bag.bag.close()
 
             ## Stop the sensors from sending other data
             self.kinectPublisher.publish("0")

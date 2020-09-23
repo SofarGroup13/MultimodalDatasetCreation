@@ -1,2 +1,2 @@
-int32[] data
-time[] t
+int32 data
+time t
